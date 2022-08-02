@@ -1,0 +1,341 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+% are all of these packages really necessary?
+% no.
+% i'm just too lazy to only grab the packages i want for a specific
+% document, so i just glob all of my most commonly used packages together
+% this is bad practice.
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, mdframed, soul, calc, enumitem, mdframed, xcolor, geometry, empheq, mathtools, tikz, pgfplots, caption, subcaption, hyperref,multicol}
+
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/,optimize command away=\includepdf]
+
+%tikzpicture
+\usepackage{tikz}
+\usepackage{scalerel}
+\usepackage{pict2e}
+\usepackage{tkz-euclide}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns,arrows.meta}
+\usetikzlibrary{shadows}
+\usetikzlibrary{external}
+
+%pgfplots
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{statistics}
+\usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{polar}
+
+\tikzset{external/export=true}
+\pgfplotsset{
+    standard/.style={
+    axis line style = thick,
+    trig format=rad,
+    enlargelimits,
+    axis x line=middle,
+    axis y line=middle,
+    enlarge x limits=0.15,
+    enlarge y limits=0.15,
+    every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+    every axis y label/.style={at={(current axis.above origin)},anchor=south east}
+    }
+}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Homework 24 Solutions},
+    pdfpagemode=UseOutlines,
+    bookmarksopen=true,
+    pdfauthor={Christina Phan}
+}
+\newcommand{\lrp}[1]{\left( #1 \right)}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\lra}[1]{\left\langle #1 \right\rangle}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\iintR}[0]{\iint\limits_{R}}
+\renewcommand{\u}[0]{\mathbf{u}}
+\renewcommand{\i}[0]{\mathbf{{i}}}
+\renewcommand{\j}[0]{\mathbf{{j}}}
+\renewcommand{\k}[0]{\mathbf{{k}}}
+\newcommand{\T}[0]{\mathbf{T}}
+\newcommand{\N}[0]{\mathbf{N}}
+\newcommand{\B}[0]{\mathbf{B}}
+\renewcommand{\r}[0]{\mathbf{r}}
+\renewcommand{\a}[0]{\mathbf{a}}
+\renewcommand{\v}[0]{\mathbf{v}}
+\newcommand{\F}[0]{\mathbf{F}}
+\newcommand{\G}[0]{\mathbf{G}}
+\newcommand{\n}[0]{\mathbf{n}}
+\newcommand{\eqq}[0]{\stackrel{?}{=}}
+\renewcommand{\arraystretch}{1.25}
+
+\geometry{letterpaper, portrait, margin=1in}
+\renewcommand{\footrulewidth}{0.8pt}
+\setlength\parindent{0pt}
+\pagestyle{fancy}
+\lhead{Christina Phan}
+\rhead{MAT 21D} 
+\chead{\textbf{Homework 24 Solutions}}
+
+\newcommand{\Solution}{\textit{Solution}}
+\pgfplotsset{compat=1.18}
+\begin{document}
+
+\phantomsection
+\addcontentsline{toc}{section}{Problem 1 (Parts)}\textbf{Problem 1 (Parts)}
+
+A function $f(x,y,z)$ is \textit{harmonic} if it satisfies the Laplace equation $\nabla ^2 f=0$, where
+\begin{equation*}
+    \nabla^2 f =\nabla \cdot \nabla f =\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2}
+\end{equation*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{1(a)}\textbf{(a)} If $f$ is harmonic through a region $D$ with smooth boundary surface $S$ and $\n$ is the normal vector on $S$, show that $\displaystyle \iint_S \nabla f\cdot\n\,d\sigma=0$.
+
+\Solution
+
+Recall that by Divergence Theorem,
+\begin{align*}
+   \iint_S \F\cdot \n \,d\sigma&= \iiint_D \nabla \cdot \F\,dV
+\end{align*}
+Let $\F=\nabla f$ where $f$ is harmonic through a region $D$ with smooth boundary surface $S$ and $\n$ is the normal vector on $S$. 
+
+By Divergence Theorem,
+\begin{align*}
+ \iint_S\nabla f\cdot \n\,d\sigma&= \iint_S \F\cdot \n \,d\sigma\\
+ &= \iiint_D \nabla \cdot \F\,dV\\
+  &=\iiint_D \nabla \cdot \lrp{\nabla f}\,dV\\
+  &=\iint_D \nabla ^2 f\,dV\\
+  &=\iint_D 0\,dV\tag{$f$ is harmonic}\\
+  &=0
+\end{align*}
+\qed
+
+
+\phantomsection
+\addcontentsline{toc}{subsection}{1(b)}\textbf{(b)} If $f$ is harmonic on $D$, show that $\displaystyle \iint_S f\,\nabla f \cdot \n \,d\sigma=\iiint_D \norm{\nabla f}^2\,dV$.
+
+\Solution
+
+Recall that by Divergence Theorem,
+\begin{align*}
+   \iint_S \F\cdot \n \,d\sigma&= \iiint_D \nabla \cdot \F\,dV
+\end{align*}
+Let $\F=\nabla f$ where $f$ is harmonic through a region $D$ with smooth boundary surface $S$ and $\n$ is the normal vector on $S$. 
+
+Don't forget that $f$ is a \textit{scalar} function, so we can treat $f$ as a scalar.
+
+By Divergence Theorem,
+\begin{align*}
+    \iint_S f\,\nabla f\cdot\,d\sigma&=\iint_S f\,\F\cdot\n\,d\sigma\\
+    &=\iiint_D \nabla \cdot \lrp{f\,\F}\,dV\\
+    &=\iiint_D \nabla \cdot \lrp{f\,\nabla f}\,dV\\
+    &=\iiint_D \nabla \cdot\lra{{f\frac{\partial f}{\partial x}, f\frac{\partial f}{\partial y},f\frac{\partial f}{\partial z}}}\,dV\tag{$\displaystyle\nabla f=\lra{\frac{\partial f}{\partial x},\frac{\partial f}{\partial y},\frac{\partial f}{\partial x}}$ and $f$ is just a scalar}\\
+    &=\iiint_D \lra{\frac{\partial }{\partial x},\frac{\partial }{\partial y},\frac{\partial }{\partial z}}\cdot \lra{{f\frac{\partial f}{\partial x}, f\frac{\partial f}{\partial y},f\frac{\partial f}{\partial z}}}\,dV\\
+    &=\iiint_D \frac{\partial }{\partial x}\lrp{f\frac{\partial f}{\partial x}}+\frac{\partial }{\partial y}\lrp{f\frac{\partial f}{\partial y}}+\frac{\partial }{\partial z}\lrp{f\frac{\partial f}{\partial z}}\,dV\\
+    &=\iiint_D \Bigg(\lrp{\frac{\partial f}{\partial x}\frac{\partial f}{\partial x}}+\lrp{f\frac{\partial^2 f}{\partial x^2}}\Bigg)+\Bigg(\lrp{\frac{\partial f}{\partial y}\frac{\partial f}{\partial y}}+\lrp{f\frac{\partial^2 f}{\partial y^2}}\Bigg)+\Bigg(\lrp{\frac{\partial f}{\partial z}\frac{\partial f}{\partial z}}+\lrp{f\frac{\partial^2 f}{\partial z^2}}\Bigg)\,dV\tag{don't forget that $f$ is \textit{also} a multivar function}\\
+    &=\iiint_D \lrp{\frac{\partial f}{\partial x}^2 }+f\frac{\partial^2 f}{\partial x^2}+\lrp{\frac{\partial f}{\partial y}}^2 + f\frac{\partial^2 f}{\partial y^2}+\lrp{\frac{\partial f}{\partial z}}^2 + f\frac{\partial ^2 f}{\partial z^2}\,dV\\
+    &=\iiint_D \Bigg(\lrp{\frac{\partial f}{\partial x}}^2+\lrp{\frac{\partial f}{\partial y}}^2+\lrp{\frac{\partial f}{\partial z}}^2\Bigg)+\Bigg(f\frac{\partial^2 f}{\partial x^2}+f\frac{\partial^2 f}{\partial y^2}+f\frac{\partial^2 f}{\partial z^2}\Bigg)\,dV\tag{rearrange}\\
+    &=\iiint_D \Bigg(\lrp{\frac{\partial f}{\partial x}}^2+\lrp{\frac{\partial f}{\partial y}}^2+\lrp{\frac{\partial f}{\partial z}}^2\Bigg)+f\lrp{\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}+\frac{\partial^2 f}{\partial z^2}}\,dV\tag{$f$ is a scalar function}\\
+    &=\iiint_D \norm{\nabla f}^2 + f(0)\,dV\tag{def of magnitude; $f$ is harmonic}\\
+    &=\iiint_D \norm{\nabla f}^2\,dV
+\end{align*}
+\qed
+
+
+\phantomsection
+\addcontentsline{toc}{section}{Problem 2 (Parts)}\textbf{Problem 2 (Parts)}
+
+Let $f$ and $g$ be functions with continuous first and second partial derivatives throughout a region $D$ with piecewise-smooth boundary surface $S$.
+
+\Solution
+
+
+\phantomsection
+\addcontentsline{toc}{subsection}{2(a)}\textbf{(a)} Show that $\displaystyle \iint_S f\nabla g\cdot \n\,d\sigma=\iiint_D f\nabla^2 g + \nabla f \cdot \nabla g \,dV$ (\textit{Green's first formula}).
+
+\Solution
+
+Recall that by Divergence Theorem,
+\begin{align*}
+   \iint_S \F\cdot \n \,d\sigma&= \iiint_D \nabla \cdot \F\,dV
+\end{align*}
+Since $f$ and $g$ are functions with continuous first and second partial derivatives throughout a region $D$ with piecewise-smooth boundary surface $S$, by Divergence Theorem,
+\begin{align*}
+    \iint_S f\,\nabla g\cdot \n\,d\sigma &= \iiint_D \nabla \cdot\lrp{f\,\nabla g}\,dV\\
+    &=\iiint_D \nabla \cdot\lrp{\lra{f\frac{\partial g}{\partial x},f\frac{\partial g}{\partial y},f\frac{\partial g}{\partial z}}}\,dV\tag{$f$ is a scalar function}\\
+    &=\iint_D \lra{\frac{\partial }{\partial x}, \frac{\partial }{\partial y}, \frac{\partial }{\partial z}}\cdot \lra{f\frac{\partial g}{\partial x},f\frac{\partial g}{\partial y},f\frac{\partial g}{\partial z}}\,dV\\
+    &=\iiint_D \frac{\partial }{\partial x}\lrp{f\frac{\partial g}{\partial x}}+\frac{\partial }{\partial y}\lrp{f\frac{\partial g}{\partial y}}+\frac{\partial }{\partial z}\lrp{f\frac{\partial g}{\partial z}}\,dV\\
+    &=\iiint_D \lrp{\frac{\partial f}{\partial x}\frac{\partial g}{\partial x}+f\frac{\partial ^2 g}{\partial x}}+\lrp{\frac{\partial f}{\partial y}\frac{\partial g}{\partial y}+f\frac{\partial ^2 g}{\partial y}}+\lrp{\frac{\partial f}{\partial z}\frac{\partial g}{\partial z}+f\frac{\partial ^2 g}{\partial z}}\,dV\tag{don't forget that $f$ is \textit{also} a multivar function}\\
+    &=\iiint_D \lrp{f\frac{\partial^2}{\partial x}+f\frac{\partial^2}{\partial y}+f\frac{\partial^2}{\partial z}}+\lrp{\frac{\partial f}{\partial x}\frac{\partial g}{\partial x}+\frac{\partial f}{\partial y}\frac{\partial g}{\partial y}+\frac{\partial f}{\partial z}\frac{\partial g}{\partial z}}\,dV\tag{rearrange}\\
+    &=\iiint_D f\lrp{\frac{\partial^2 g}{\partial x}+\frac{\partial^2 g}{\partial y}+\frac{\partial^2 g}{\partial z}}+\lrp{\frac{\partial f}{\partial x}\frac{\partial g}{\partial x}+\frac{\partial f}{\partial y}\frac{\partial g}{\partial y}+\frac{\partial f}{\partial z}\frac{\partial g}{\partial z}}\,dV\tag{$f$ is a scalar function}\\
+    &=\iiint_D f\,\nabla^2 g + \nabla f\cdot\nabla g\,dV\tag{try finding $\nabla f\cdot \nabla g$ yourself to check}
+\end{align*}
+\qed
+
+\phantomsection
+\addcontentsline{toc}{subsection}{2(b)}\textbf{(b)} Use the result from the previous part to obtain \textit{Green's second formula}
+\begin{equation*}
+    \iint_S \lrp{f\,\nabla g-g\,\nabla f}\cdot\n\,d\sigma=\iiint_D f\,\nabla^2g-g\,\nabla^2f\,dV
+\end{equation*}
+\Solution
+
+Since $\displaystyle \iint_S f\,\nabla g\cdot \n\,d\sigma=\iiint_D f\nabla^2 g + \nabla f \cdot \nabla g \,dV$, we can switch $f$ and $g$ around to get
+\begin{align*}
+    \iint_S g\,\nabla f\cdot \n\,d\sigma=\iiint_D g\nabla^2 f + \nabla g \cdot \nabla f \,dV
+\end{align*}
+Therefore,
+\begin{align*}
+     \iint_S \lrp{f\,\nabla g-g\,\nabla f}\cdot\n\,d\sigma&=\iiint_D f\nabla^2 g + \nabla f \cdot \nabla g \,dV-\iiint_D g\nabla^2 f + \nabla g \cdot \nabla f \,dV\\
+     &=\iiint_D \lrp{f\nabla^2 g + \nabla f \cdot \nabla g}-\lrp{g\nabla^2 f + \nabla g \cdot \nabla f}\,dV\tag{same $D$ region}\\
+     &=\iiint_D \lrp{f\nabla^2 g - g\nabla^2 f }+ \lrp{\nabla f\cdot\nabla g - \nabla g \cdot\nabla f}\,dV\tag{rearrange}\\
+     &=\iiint_D \lrp{f\nabla^2 g - g\nabla^2 f }+\lrp{\nabla f\cdot \nabla g - \nabla f \cdot \nabla g}\,dV\tag{dot products commute (order doesn't matter)}\\
+     &=\iiint_D \lrp{f\nabla^2 g - g\nabla^2 f }+\lrp{0}\,dV\\
+     &=\iiint_D f\,\nabla^2g-g\,\nabla^2f\,dV
+\end{align*}
+\qed
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Problem 3}\textbf{Problem 3}
+
+If $f$ and $g$ are continuously differentiable functions defined over an oriented surface $S$ with boundary curve $C$, show that
+\begin{equation*}
+    \iint_S \lrp{\nabla f \times \nabla g}\cdot \n\,d\sigma=\oint_C f\nabla g\,d\r
+\end{equation*}
+
+\Solution
+
+Recall that by Stokes' Theorem,
+\begin{equation*}
+    \oint_C \F\cdot d\r=\iint_S \lrp{\nabla \times \F}\cdot \n\,d\sigma
+\end{equation*}
+This will come into use later, but let's quickly find what $\nabla \times \lrp{f\nabla g}$ is.
+
+For notation sake, let $\displaystyle \nabla g =\lra{\frac{\partial g}{\partial x}, \frac{\partial g}{\partial y}, \frac{\partial g}{\partial z}}=\lra{M, N, P}$.
+\begin{align*}
+    \nabla \times \lrp{f\nabla g}&=\begin{vmatrix}\i & \j & \k\\
+    \frac{\partial }{\partial x}&\frac{\partial }{\partial y}&\frac{\partial }{\partial z}\\
+   f M&fN&fP\end{vmatrix}\tag{$f$ is a scalar function}\\
+   &=\lra{\frac{\partial f}{\partial y}P+f\frac{\partial P}{\partial y}-\frac{\partial f}{\partial z}N-f\frac{\partial N}{\partial z},-\frac{\partial f}{\partial x}P-f\frac{\partial P}{\partial x}+\frac{\partial f}{\partial z}M + f\frac{\partial M}{\partial z},\frac{\partial f}{\partial x}N+f\frac{\partial N}{\partial x}-\frac{\partial f}{\partial y}M-f\frac{\partial M}{\partial y}}\\
+   &=\lra{f\frac{\partial P}{\partial y}-f\frac{\partial N}{\partial z}, f\frac{\partial M}{\partial z}-f\frac{\partial P}{\partial x}, f\frac{\partial N}{\partial x}-f\frac{\partial M}{\partial y}}+\lra{\frac{\partial f}{\partial y}P-\frac{\partial f}{\partial z}N, \frac{\partial f}{\partial z}M-\frac{\partial f}{\partial x}P, \frac{\partial f}{\partial x}N - \frac{\partial f}{\partial y}M}\\
+   &=f\lra{\frac{\partial P}{\partial y}-\frac{\partial N}{\partial z}, \frac{\partial M}{\partial z}-\frac{\partial P}{\partial x}, \frac{\partial N}{\partial x}-\frac{\partial M}{\partial y}}+\lra{\frac{\partial f}{\partial y}P-\frac{\partial f}{\partial z}N, \frac{\partial f}{\partial z}M-\frac{\partial f}{\partial x}P, \frac{\partial f}{\partial x}N - \frac{\partial f}{\partial y}M}\tag{$f$ is a scalar function}\\
+   &=f\lrp{\nabla \times \nabla g}+\lra{\frac{\partial f}{\partial y}P-\frac{\partial f}{\partial z}N, \frac{\partial f}{\partial z}M-\frac{\partial f}{\partial x}P, \frac{\partial f}{\partial x}N - \frac{\partial f}{\partial y}M}\tag{see Homework 22, Problem 1(b)}\\
+   &=f\lrp{\nabla \times \nabla g}+\nabla f \times \nabla g\tag{try finding $\nabla f \times \nabla g$ yourself to check}
+\end{align*}
+If $\displaystyle \oint_C f\,\nabla g\,d\r$, then by Stokes' Theorem,
+\begin{align*}
+    \oint_C f\,\nabla g\,d\r&=\iint_S \lrp{\nabla \times \lrp{f\,\nabla g}}\cdot\n\,d\sigma\\
+    &=\iint_S \lrp{f\lrp{\nabla \times \nabla g }+ \nabla f \times \nabla g}\cdot \n\,d\sigma\tag{we just found what $\nabla \times\lrp{f\nabla g}$ is}\\
+    &=\iint_S \lrp{f\lrp{\mathbf{0}}+\nabla f\times \nabla g}\cdot \n\,d\sigma\tag{see HW 21, Problem 1(c)}\\
+    &=\iint_S \lrp{\nabla f \times \nabla g}\cdot \n \,d\sigma
+\end{align*}
+\qed
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Problem 4}\textbf{Problem 4}
+
+If $\nabla \cdot \F_1=\nabla \cdot \F_2$ and $\nabla \times \F_1=\nabla \times \F_2$ over a region $D$ with oriented boundary surface $S$ such that $\F_1\cdot\n=\F_2\cdot\n$ on $S$, show that $\F_1=\F_2$ throughout $D$.
+
+\Solution
+
+Let $\F=\F_1-\F_2$. 
+
+Since $\nabla \cdot \F_1=\nabla \cdot \F_2$, $\nabla \times \F_1=\nabla \times \F_2$, and $\F_1\cdot \n = \F_2\cdot \n$,
+\begin{align*}
+    \nabla \cdot \F &=\nabla \cdot \lrp{\F_1 - \F_2}= \lrp{\nabla \cdot \F_1}-\lrp{\nabla \cdot \F_2}=0\\
+    \nabla \times \F&=\nabla \times\lrp{\F_1-\F_2}=\lrp{\nabla \times \F_1}-\lrp{\nabla \times \F_2}=\mathbf{0}\tag{\textit{not} a scalar}\\
+    \F\cdot \n &= \lrp{\F_1-\F_2}\cdot \n=\lrp{\F_1 \cdot \n}-\lrp{\F_2\cdot \n}=0
+\end{align*}
+Since $\mathbf{F}=\F_1-\F_2$ is defined over a region $D$ with oriented boundary surface $S$, the region $D$ is simply connected. 
+
+Since $\nabla \times \F=\mathbf{0}$ and the region $D$ is simply connected, $\F$ is conservative. Therefore, there exists a potential function $f$ such that $\F=\nabla f$.
+
+Let $\F=\nabla f$. Then,
+\begin{align*}
+    \nabla \cdot \F &= 0\\
+    \implies \nabla \cdot \lrp{\nabla f}&=0\\
+    \nabla^2 f &= 0
+\end{align*}
+Since $\nabla^2 f = 0$, $f$ is harmonic. Since $f$ is harmonic, \begin{align*}
+   \iiint_D \norm{\nabla f}^2\,dV &=\iint_S f\nabla f \cdot \n\,d\sigma\tag{see Homework 24, 1(b)}\\
+   \iiint_D \norm{\F}^2\,dV&=\iint_S f\lrp{\nabla f \cdot \n}\,d\sigma\tag{$f$ is a scalar function}\\
+   &=\iint_S f\lrp{\F\cdot\n}\,d\sigma\\
+   &=\iint_S f\lrp{0}\,d\sigma\\
+   &=\iint_S 0\,d\sigma\\
+   &=0
+\end{align*}
+Since $\displaystyle \iiint_D \norm{\F}^2\,dV=0$ and we know $\norm{\F}^2\geq 0$ (magnitude of a vector is at least $0$), the only way for $\displaystyle\iiint_D \norm{\F}^2\,dV$ to equal $0$ is if $\norm{\F}^2=0$. Therefore,
+\begin{align*}
+    \norm{\F}^2 &= 0\\
+    \F \cdot \F &= 0\\
+    \F &= \mathbf{0}
+\end{align*}
+Since $\F=\mathbf{0}$,
+\begin{align*}
+    \F_1 - \F_2 &= \mathbf{0}\\
+    \F_1 &= \F_2
+\end{align*}
+\qed
+
+
+\phantomsection
+\addcontentsline{toc}{section}{Problem 5}\textbf{Problem 5} 
+
+I mentioned at the end of the lecture that the “wedge product” multiplication of
+differential forms is \textit{anticommutative} in the sense that $\displaystyle dx\wedge dy=-dy\wedge dx$. How is
+this consistent with our use of Fubini’s theorem to exchange the order of integration?
+
+\Solution
+
+Recall that Fubini's theorem states that
+\begin{equation*}
+    \int_c^d\int_a^bf(x,y)\,dx\,dy=\int_a^b\int_c^d f(x,y)\,dy\,dx
+\end{equation*}
+The ``wedge product" is consistent with our use of Fubini's theorem to exchange the order of integration because of the orientation of our order of integration's.
+
+Doing $\int_a^b\int_c^d$ is the reverse (negative) orientation of doing $\int_c^d\int_a^b$. So Fubini's theorem should really just be
+\begin{equation*}
+     \int_c^d\int_a^bf(x,y)\,dx\,dy=-\int_a^b\int_c^d f(x,y)\,dy\,dx
+\end{equation*}
+right?
+
+No.
+
+Don't forget that when we're switching the order of integration, we're not \textit{quite} integrating over the same rectangle. 
+
+If we think back to Stokes' Theorem, we'll remember that we need a \textit{positively-oriented} surface with \textit{counter clockwise} boundary curve. When we change the order of integration, we're literally flipping the rectangle $[c, d]\times [a, b]$ (counter clockwise, positive) over to become $[a, b]\times [c, d]$ (clockwise, negative).
+
+We already noted the $-1$ from the negative orientation, but we need to also account for the direction. This will throw on an additional $-1$. 
+
+Since $-1\times -1=1$,
+\begin{equation*}
+    \int_c^d\int_a^bf(x,y)\,dx\,dy=\int_a^b\int_c^df(x,y)\,dy\,d
+\end{equation*}
+\qed
+
+\end{document}

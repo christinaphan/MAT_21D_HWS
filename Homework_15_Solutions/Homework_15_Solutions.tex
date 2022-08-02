@@ -1,0 +1,577 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+% are all of these packages really necessary?
+% no.
+% i'm just too lazy to only grab the packages i want for a specific
+% document, so i just glob all of my most commonly used packages together
+% this is bad practice.
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, mdframed, soul, calc, enumitem, mdframed, xcolor, geometry, empheq, mathtools, tikz, pgfplots, caption, subcaption, hyperref}
+
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/,optimize command away=\includepdf]
+
+%tikzpicture
+\usepackage{tikz}
+\usepackage{scalerel}
+\usepackage{pict2e}
+\usepackage{tkz-euclide}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns,arrows.meta}
+\usetikzlibrary{shadows}
+\usetikzlibrary{external}
+
+%pgfplots
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{statistics}
+\usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{polar}
+
+\tikzset{external/export=true}
+\pgfplotsset{
+    standard/.style={
+    axis line style = thick,
+    trig format=rad,
+    enlargelimits,
+    axis x line=middle,
+    axis y line=middle,
+    enlarge x limits=0.15,
+    enlarge y limits=0.15,
+    every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+    every axis y label/.style={at={(current axis.above origin)},anchor=south east}
+    }
+}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Homework 15 Solutions},
+    pdfpagemode=UseOutlines,
+    bookmarksopen=true,
+    pdfauthor={Christina Phan}
+}
+\newcommand{\lrp}[1]{\left( #1 \right)}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\lra}[1]{\left\langle #1 \right\rangle}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\iintR}[0]{\iint\limits_{R}}
+\renewcommand{\u}[0]{\mathbf{u}}
+\renewcommand{\i}[0]{\mathbf{i}}
+\renewcommand{\j}[0]{\mathbf{j}}
+\renewcommand{\k}[0]{\mathbf{k}}
+\newcommand{\T}[0]{\mathbf{T}}
+\newcommand{\N}[0]{\mathbf{N}}
+\newcommand{\B}[0]{\mathbf{B}}
+\renewcommand{\r}[0]{\mathbf{r}}
+\renewcommand{\a}[0]{\mathbf{a}}
+\renewcommand{\v}[0]{\mathbf{v}}
+\newcommand{\F}[0]{\mathbf{F}}
+\newcommand{\eqq}[0]{\stackrel{?}{=}}
+
+\geometry{letterpaper, portrait, margin=1in}
+\renewcommand{\footrulewidth}{0.8pt}
+\setlength\parindent{0pt}
+\pagestyle{fancy}
+\lhead{Christina Phan}
+\rhead{MAT 21D} 
+\chead{\textbf{Homework 15 Solutions}}
+
+\newcommand{\Solution}{\textit{Solution}}
+\pgfplotsset{compat=1.18}
+\begin{document}
+
+\phantomsection
+\addcontentsline{toc}{section}{Problem 1}\textbf{Problem 1}
+
+Consider the vector field $\displaystyle\F(x,y,z)=\lra{\frac{-y}{x^2+y^2},\frac{x}{x^2+y^2},0}$.
+
+\phantomsection
+\addcontentsline{toc}{subsection}{1(a)}\textbf{(a)} Show that $\F$ satisfies the ``component test" for conservative vector fields.
+
+\Solution
+
+Recall that the ``component test" states that if $\F$ is a conservative vector field then
+\begin{align*}
+    \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x},\hspace{2em}\frac{\partial M}{\partial z}=\frac{\partial P}{\partial x},\hspace{2em} \text{and}\hspace{2em}\frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}.
+\end{align*}
+Since $\displaystyle\F(x,y,z)=\lra{\frac{-y}{x^2+y^2},\frac{x}{x^2+y^2},0}$, \begin{align*}
+    M&=\frac{-y}{x^2+y^2}\\
+    N&=\frac{x}{x^2+y^2}\\
+    P&=0
+\end{align*}
+Let's do the ``component test".
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{M and N}
+For $\displaystyle \frac{\partial M}{\partial y}$ and $\displaystyle\frac{\partial N}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial y}&=\frac{-(x^2+y^2)-2y(-y)}{(x^2+y^2)^2}=\frac{-x^2-y^2+2y^2}{(x^2+y^2)^2}=\frac{-x^2+y^2}{(x^2+y^2)^2}\\
+    \frac{\partial N}{\partial x}&=
+    \frac{(x^2+y^2)-2x(x)}{(x^2+y^2)^2}=\frac{x^2+y^2-2x^2}{(x^2+y^2)^2}=\frac{-x^2+y^2}{(x^2+y^2)^2}
+\end{align*}
+Since $\displaystyle \frac{\partial M}{\partial y}=\frac{-x^2+y^2}{(x^2+y^2)^2}$ and $\displaystyle \frac{\partial N}{\partial x}=\frac{-x^2+y^2}{(x^2+y^2)^2}$, $\displaystyle \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{M and P}
+For $\displaystyle \frac{\partial M}{\partial z}$ and $\displaystyle\frac{\partial P}{\partial x}$,
+\begin{align*}
+     \frac{\partial M}{\partial z}&=0\\
+     \frac{\partial P}{\partial x}&=
+     0
+\end{align*}
+Since $\displaystyle \frac{\partial M}{\partial z}=0$ and $\displaystyle \frac{\partial P}{\partial x}=0$, $\displaystyle \frac{\partial M}{\partial z}=\frac{\partial P}{\partial x}$
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{N and P}
+For $\displaystyle \frac{\partial N}{\partial z}$ and $\displaystyle\frac{\partial P}{\partial y}$,
+\begin{align*}
+     \frac{\partial N}{\partial z}&=0\\
+     \frac{\partial P}{\partial y}&=0
+\end{align*}
+Since $\displaystyle \frac{\partial N}{\partial z}=0$ and $\displaystyle\frac{\partial P}{\partial y}=0$, $\displaystyle \frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}$.
+
+Since $\displaystyle \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$, $\displaystyle \frac{\partial M}{\partial z}=\frac{\partial P}{\partial x}$, and $\displaystyle \frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}$, the vector field $\F$ satisfies the ``component test" for conservative vector fields.
+
+\qed
+\newpage
+\phantomsection
+\addcontentsline{toc}{subsection}{1(b)}\textbf{(b)} Show, however, that $\F$ is not conservative by directly evaluating $\displaystyle \oint_C \F\cdot d\r$, where $C$ is the unit circle in the $xy$-plane.
+
+\Solution
+
+We need to find a $\r(t)$ to evaluate our integral. Since there is a $x^2+y^2$, let's think about using a circle. Circles... let's use the $x$ and $y$ parts of our good old pal the helix, $\r(t)=\lra{a\cos t, a\sin t, t}$! Since $C$ is a unit circle, the radius is $1$. Therefore, our $\r$ must be $\r(t)=\lra{\cos t,\sin t}$ where $0\leq t \leq 2\pi$ since we're going around the full circle.
+
+If $\r(t)=\lra{\cos t,\sin t}$,
+\begin{align*}
+    \F\lrp{\r(t)}&=\lra{\frac{-\sin t}{\cos^2 t +\sin^2 t},\frac{\cos t}{\cos ^2 t + \sin ^2 t},0}=\lra{-\sin t,\cos t}\tag{$\sin^2 t + \cos ^2 t=1$, we can drop $z$ since $z=0$}\\
+    \r'(t)&=\lra{-\sin t, \cos t}
+\end{align*}
+Let's evaluate our integral.
+\begin{align*}
+    \oint_C \F\cdot d\r&=\int_0^{2\pi}\lra{-\sin t,\cos t}\cdot \lra{-\sin t, \cos t}\,dt\\
+    &=\int_0^{2\pi} \sin^2 t + \cos ^2 t\,dt\\
+    &=\int_0^{2\pi} 1\,dt\tag{$\sin^2 t + \cos ^2 t$}\\
+    &=\lrb{t}_0^{2\pi}\\
+    &=2\pi
+\end{align*}
+For conservative vector fields, $\displaystyle  \oint_C \F\cdot d\r=0$ for \textbf{any} loop $C$. Since $\displaystyle  \oint_C \F\cdot d\r=2\pi$ where $C$ is the unit circle in the $xy$-plane, the vector field $\F$ must not be conservative since for conservative vector fields since $0\neq 2\pi$.
+\qed
+
+\phantomsection
+\addcontentsline{toc}{subsection}{1(c)}\textbf{(c)} Why is this not a counterexample to the test for conservative fields? (Consider the domain on which $F$ is defined.
+
+\Solution
+
+ The ``component test" requires that the domain of $\F$ is simply connected (no holes). This is not a counterexample to the test for conservative fields because the domain is not simply connected. That is, there is a hole at the $z$-axis. Since $\displaystyle \F(x,y,z)=\lra{\frac{-y}{x^2+y^2},\frac{x}{x^2+y^2},0}$, we know $x^2+y^2\neq 0$ since we cannot divide by $0$. Since $x^2+y^2\neq 0$, $(0,0,z)$ is not in the domain of $\F$, so the entire $z$-axis is invalid. That means, we have a hole in our domain, so the ``component test" is not appropriate to use here.
+
+\phantomsection
+\addcontentsline{toc}{section}{Problem 2}\textbf{Problem 2}
+
+Determine whether the vector field is conservative:
+
+\phantomsection
+\addcontentsline{toc}{subsection}{2(a)}\textbf{(a)} $\F(x,y,z)=\lra{y\sin z, x\sin z, xy\cos z}$
+
+\Solution
+
+Recall that the ``component test" states that if $\F$ is a conservative vector field then
+\begin{align*}
+    \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x},\hspace{2em}\frac{\partial M}{\partial z}=\frac{\partial P}{\partial x},\hspace{2em} \text{and}\hspace{2em}\frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}.
+\end{align*}
+Since $\displaystyle\F(x,y,z)=\lra{y\sin z, x\sin z, xy\cos z}$, \begin{align*}
+    M&=y\sin z\\
+    N&=x\sin z\\
+    P&=xy\cos z
+\end{align*}
+Let's use the ``component test".
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{M and N}
+For $\displaystyle \frac{\partial M}{\partial y}$ and $\displaystyle\frac{\partial N}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial y}&= \sin z\\
+    \frac{\partial N}{\partial x}&=
+    \sin z
+\end{align*}
+Since $\displaystyle \frac{\partial M}{\partial y}=\sin z$ and $\displaystyle\frac{\partial N}{\partial x}=\sin z$, $\displaystyle \frac{\partial M}{\partial y}=\displaystyle\frac{\partial N}{\partial x}$.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{M and P}
+For $\displaystyle\frac{\partial M}{\partial z}$ and $\displaystyle\frac{\partial P}{\partial x}$
+\begin{align*}
+    \frac{\partial M}{\partial z}&=y\cos z\\
+    \frac{\partial P}{\partial x}&=
+    y\cos z
+\end{align*}
+Since $\displaystyle\frac{\partial M}{\partial z}=y\cos z$ and $\displaystyle\frac{\partial P}{\partial x}=y\cos z$,  $\displaystyle\frac{\partial M}{\partial z}=\displaystyle\frac{\partial P}{\partial x}$.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{N and P}
+For $\displaystyle \frac{\partial N}{\partial z}$ and $\displaystyle\frac{\partial P}{\partial y}$,
+\begin{align*}
+     \frac{\partial N}{\partial z}&=x\cos z\\
+     \frac{\partial P}{\partial y}&=x\cos z
+\end{align*}
+Since $\displaystyle \frac{\partial N}{\partial z}=x\cos z$ and $\displaystyle\frac{\partial P}{\partial y}=x\cos z$, $\displaystyle \frac{\partial N}{\partial z}=\displaystyle\frac{\partial P}{\partial y}$.
+
+Since $\displaystyle \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$, $\displaystyle \frac{\partial M}{\partial z}=\frac{\partial P}{\partial x}$, and $\displaystyle \frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}$, $\F$ satisfies the ``component test" for conservative vector fields.
+
+\qed
+
+\phantomsection
+\addcontentsline{toc}{subsection}{2(b)}\textbf{(b)} $\F(x,y,z)=\lra{y,x+z,-y}$
+
+\Solution
+
+Recall that the ``component test" states that if $\F$ is a conservative vector field then
+\begin{align*}
+    \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x},\hspace{2em}\frac{\partial M}{\partial z}=\frac{\partial P}{\partial x},\hspace{2em} \text{and}\hspace{2em}\frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}.
+\end{align*}
+Since $\displaystyle\F(x,y,z)=\lra{y,x+z,-y}$, \begin{align*}
+    M&=y\\
+    N&=x+z\\
+    P&=-y
+\end{align*}
+Our domain is simply connected because there are no holes in the domain ($y$, $x+z$, and $-y$ are all continuous).
+
+Let's use the ``component test".
+
+Check out this sick trick I do :D
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{N and P}
+For $\displaystyle \frac{\partial N}{\partial z}$ and $\displaystyle\frac{\partial P}{\partial y}$,
+\begin{align*}
+     \frac{\partial N}{\partial z}&=1\\
+     \frac{\partial P}{\partial y}&= -1
+\end{align*}
+\hl{\textbf{stop here :)}}
+
+Since $\displaystyle \frac{\partial N}{\partial z}\neq\frac{\partial P}{\partial y}$, $\F$ does not satisfy the ``component test" for conservative vector fields.
+
+\qed
+
+\phantomsection
+\addcontentsline{toc}{subsection}{2(c)}\textbf{(c)} $\F(x,y,z)=\lra{z+y,z,y+z}$
+
+\Solution
+
+Recall that the ``component test" states that if $\F$ is a conservative vector field then
+\begin{align*}
+    \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x},\hspace{2em}\frac{\partial M}{\partial z}=\frac{\partial P}{\partial x},\hspace{2em} \text{and}\hspace{2em}\frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}.
+\end{align*}
+Since $\F(x,y,z)=\lra{z+y,z,y+z}$, \begin{align*}
+    M&=z+y\\
+    N&=z\\
+    P&=y+z
+\end{align*}
+Let's use the ``component test".
+
+Check out this sick trick I do :D
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{M and N}
+For $\displaystyle \frac{\partial M}{\partial y}\neq\frac{\partial N}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial y}&=1\\
+    \frac{\partial N}{\partial x}&=0
+\end{align*}
+\hl{\textbf{stop here :)}}
+
+Since $\displaystyle \frac{\partial M}{\partial y}\neq\frac{\partial N}{\partial x}$, $\F$ does not satisfy the ``component test" for conservative vector fields.
+\qed
+
+\phantomsection
+\addcontentsline{toc}{section}{Problem 3}\textbf{Problem 3}
+
+Show that the differential form in the integral is exact and evaluate the integral:
+
+\phantomsection
+\addcontentsline{toc}{subsection}{3(a)}\textbf{(a)} $\displaystyle\int_{(0,0,0)}^{(2,3,-6)}2x\,dx+2y\,dy+2z\,dz$
+
+\Solution
+
+Recall that a differential form is exact if and only if
+\begin{align*}
+    \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x},\hspace{2em}\frac{\partial M}{\partial z}=\frac{\partial P}{\partial x},\hspace{2em} \text{and}\hspace{2em}\frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}.
+\end{align*}
+Since $\displaystyle\F(x,y,z)=\lra{2x,2y,2z}$, \begin{align*}
+    M&=2x\\
+    N&=2y\\
+    P&=2z
+\end{align*}
+Let's check if the differential form in the integral is exact.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{M and N}
+For $\displaystyle \frac{\partial M}{\partial y}$ and $\displaystyle \frac{\partial N}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial y}&=0\\
+    \frac{\partial N}{\partial x}&=0
+\end{align*}
+Since $\displaystyle \frac{\partial M}{\partial y}=0$ and $\displaystyle \frac{\partial N}{\partial x}=0$, $\displaystyle \frac{\partial M}{\partial y}=\displaystyle \frac{\partial N}{\partial x}$.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{M and P}
+For $\displaystyle \frac{\partial M}{\partial z}$ and $\displaystyle\frac{\partial P}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial z}&=0\\
+    \frac{\partial P}{\partial x}&=0
+\end{align*}
+Since $\displaystyle \frac{\partial M}{\partial z}=0$ and $\displaystyle\frac{\partial P}{\partial x}=0$, $\displaystyle \frac{\partial M}{\partial z}=\displaystyle\frac{\partial P}{\partial x}$.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{N and P}
+For $\displaystyle \frac{\partial N}{\partial z}$ and $\displaystyle\frac{\partial P}{\partial y}$,
+\begin{align*}
+    \frac{\partial N}{\partial z}&=0\\
+    \frac{\partial P}{\partial y}&=0
+\end{align*}
+Since $\displaystyle \frac{\partial N}{\partial z}=0$ and $\displaystyle\frac{\partial P}{\partial y}=0$, $\displaystyle \frac{\partial N}{\partial z}=\displaystyle\frac{\partial P}{\partial y}$.
+
+Since $\displaystyle \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$, $\displaystyle \frac{\partial M}{\partial z}=\frac{\partial P}{\partial x}$, and $\displaystyle \frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}$, $\F$ is exact.
+
+Let's start finding $f(x,y,z)$ so we can evaluate the integral.
+
+Since $\displaystyle \frac{\partial f}{\partial x}=2x$,
+\begin{align*}
+    f(x,y,z)&=x^2+g(y,z)
+\end{align*}
+Since $\displaystyle \frac{\partial f}{\partial y}=2y$,
+\begin{align*}
+    \frac{\partial f}{\partial y}= 0 + \frac{\partial g}{\partial y}&= 2y\\
+    \implies \frac{\partial g}{\partial y}&= 2y\\
+    \implies f(x,y,z)&=x^2+y^2  +h(z)
+\end{align*}
+Finally, since $\displaystyle \frac{\partial f}{\partial z}=2z$,
+\begin{align*}
+\frac{\partial f}{\partial z}=0+0+\frac{\partial h}{\partial z}&=2z\\
+\implies \frac{\partial h}{\partial z}&=2z\\
+\implies f(x,y,z)&=x^2+y^2+z^2 \tag{let $C=0$ aka ignore $C$}
+\end{align*}
+Since $f(x,y,z)=x^2+y^2+z^2$,
+\begin{align*}
+    \int_{(0,0,0)}^{(2,3,-6)}2x\,dx+2y\,dy+2z\,dz&=\lrb{f(x,y,z)}_{(0,0,0)}^{(2,3,-6)}\\
+    &=f(2,3,-6)-f(0,0,0)\\
+    &=\lrp{2^2+3^2+(-6)^2}-\lrp{0^2+0^2+0^2}\\
+    &=\boxed{49}
+\end{align*}
+\newpage
+\phantomsection
+\addcontentsline{toc}{subsection}{3(b)}\textbf{(b)} $\displaystyle \int_{(0,0,0)}^{(3,3,1)}2xy\,dx+(x^2-z^2)\,dy-2yz\,dz$
+
+\Solution
+
+Recall that a differential form is exact if and only if
+\begin{align*}
+    \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x},\hspace{2em}\frac{\partial M}{\partial z}=\frac{\partial P}{\partial x},\hspace{2em} \text{and}\hspace{2em}\frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}.
+\end{align*}
+Since $\displaystyle\F(x,y,z)=\lra{2xy,x^2-z^2,-2yz}$, \begin{align*}
+    M&=2xy\\
+    N&=x^2-z^2\\
+    P&=-2yz
+\end{align*}
+Let's check if the differential form in the integral is exact.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{M and N}
+For $\displaystyle \frac{\partial M}{\partial y}$ and $\displaystyle\frac{\partial N}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial y}&= 2x\\
+    \frac{\partial N}{\partial x}&=2x
+\end{align*}
+Since $\displaystyle \frac{\partial M}{\partial y}=2x$ and $\displaystyle\frac{\partial N}{\partial x}=2x$, $\displaystyle \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{M and P}
+For $\displaystyle \frac{\partial M}{\partial z}$ and $\displaystyle\frac{\partial P}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial z}&=0\\ \frac{\partial P}{\partial x}&=0
+\end{align*}
+Since $\displaystyle \frac{\partial M}{\partial z}=0$ and $\displaystyle\frac{\partial P}{\partial x}=0$, $\displaystyle \frac{\partial M}{\partial z}=\displaystyle\frac{\partial P}{\partial x}$.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{N and P}
+For $\displaystyle \frac{\partial N}{\partial z}$ and $\displaystyle \frac{\partial P}{\partial y}$,
+\begin{align*}
+    \frac{\partial N}{\partial z}&=-2z\\
+    \frac{\partial P}{\partial y}&=-2z
+\end{align*}
+Since $\displaystyle \frac{\partial N}{\partial z}=-2z$ and $\displaystyle \frac{\partial P}{\partial y}=-2z$,  $\displaystyle \frac{\partial N}{\partial z}=\displaystyle \frac{\partial P}{\partial y}$.
+
+Since $\displaystyle \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$, $\displaystyle \frac{\partial M}{\partial z}=\frac{\partial P}{\partial x}$, and $\displaystyle \frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}$, $\F$ is exact.
+
+Let's start finding $f(x,y,z)$ so we can evaluate the integral.
+
+Since $\displaystyle \frac{\partial f}{\partial x}=2xy$
+\begin{align*}
+   f(x,y,z)&=x^2y+g(y,z)
+\end{align*}
+Since $\displaystyle \frac{\partial f}{\partial y}=x^2-z^2$,
+\begin{align*}
+    \frac{\partial f}{\partial y}=x^2+\frac{\partial g}{\partial y}&=x^2-z^2\\
+    \implies \frac{\partial g}{\partial y}&=-z^2\\
+    \implies f(x,y,z)&= x^2y -yz^2+h(z)
+\end{align*}
+Since $\displaystyle \frac{\partial f}{\partial z}=-2yz$,
+\begin{align*}
+    \frac{\partial f}{\partial z}=0-2yz+\frac{\partial h}{\partial z}&=-2yz\\
+    \implies \frac{\partial h}{\partial z}&=0\\
+    \implies f(x,y,z)&=x^2y-yz^2\tag{let $C=0$ aka ignore $C$}
+\end{align*}
+Since $f(x,y,z)=x^2y-yz^2$,
+\begin{align*}
+    \int_{(0,0,0)}^{(3,3,1)}2xy\,dx+(x^2-z^2)\,dy-2yz\,dz&=\lrb{f(x,y,z)}_{(0,0,0)}^{(3,3,1)}\\
+    &=f(3,3,1)-f(0,0,0)\\
+    &=\Big((3)^2(3)-(3)(1)^2\Big)-\Big((0)^2(0)-(0)(0)^2\Big)\\
+    &=\lrp{27 - 3}-\lrp{0-0}\\
+    &=\boxed{24}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{section}{Problem 4}\textbf{Problem 4} 
+
+Evaluate the integral $\displaystyle \int_C 2x\cos y\,dx -x^2\sin y\,dy$ along the path $C$:
+
+\phantomsection
+
+\Solution
+
+If we can prove that if $\F$ is conservative, then there exists an $f$ such that $\F=\nabla f$.
+
+If $\F$ is conservative, then by the ``component test",
+\begin{align*}
+    \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}
+\end{align*}
+Since $\displaystyle\F(x,y,z)=\lra{2x\cos y. -x^2\sin y}$, \begin{align*}
+    M&=2x\cos y\\
+    N&=-x^2\sin y\\
+\end{align*}
+Let's do the ``component test".
+\phantomsection
+\addcontentsline{toc}{subsection}{M and N}
+For $\displaystyle \frac{\partial M}{\partial y}$ and $\displaystyle\frac{\partial N}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial y}&= -2x\sin y\\
+    \frac{\partial N}{\partial x}&=-2x\sin y
+\end{align*}
+Since $\displaystyle \frac{\partial M}{\partial y}=-2x\sin y$ and $\frac{\partial N}{\partial x}=-2x\sin y$, $\displaystyle \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$, so $\F$ is conservative.
+
+Let's find $f(x,y)$.
+
+Since $\displaystyle \frac{\partial f}{\partial x}=2x\cos y$,
+\begin{align*}
+    f(x,y)&=x^2\cos y + g(y)
+\end{align*}
+Since $\displaystyle \frac{\partial f}{\partial y}=-x^2\sin y$,
+\begin{align*}
+    \frac{\partial f}{\partial y}=-x^2\sin y + \frac{\partial g}{\partial y}&=-x^2\sin y\\
+    \implies \frac{\partial g}{\partial y}&=0\\
+    \implies f(x,y)&=x^2\cos y\tag{let $C=0$ aka ignore $C$}
+\end{align*}
+Therefore, $\F = \nabla f$ where $f(x,y)=x^2\cos y$.
+
+\addcontentsline{toc}{subsection}{4(a)}\textbf{(a)} $C$ is a parabola $y=(x-1)^2$ from $(1,0)$ to $(0,1)$.
+
+\Solution
+
+Since $\F = \nabla f$ where $f(x,y)=x^2\cos y$,
+\begin{align*}
+    \int_C 2x\cos y\,dx -x^2\sin y\,dy&=\lrb{f(x,y)}_{(1,0)}^{(0,1)}\\
+    &=f(1,0)-f(0,1)\\
+    &=\lrp{0^2\cos 1}-\lrp{1^2\cos 0}\\
+    &=\lrp{0}-\lrp{1}\\
+    &=\boxed{-1}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{4(b}\textbf{(b)} $C$ is the line segment from $(-1,\pi)$ to $(1,0)$
+
+\Solution
+
+Since $\F = \nabla f$ where $f(x,y)=x^2\cos y$,
+\begin{align*}
+    \int_C 2x\cos y\,dx -x^2\sin y\,dy&=\lrb{f(x,y)}_{(-1, \pi)}^{(1,0)}\\
+    &=f(1, 0)-f(-1,\pi)\\
+    &=\lrp{1^2 \cos 0}-\lrp{(-1)^2\cos \pi}\\
+    &=\lrp{1}-\lrp{-1}\\
+    &=\boxed{2}
+\end{align*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{4(c)}\textbf{(c)} $C$ is the asteroid $\r(t)=\lra{\cos^3 t,\sin ^3 t}$, $0\leq t \leq 2\pi$
+
+\Solution
+
+Since $\F = \nabla f$ where $f(x,y)=x^2\cos y$,
+\begin{align*}
+    \int_C 2x\cos y\,dx -x^2\sin y\,dy&=\lrb{f(x,y)}_{(1,0)}^{(1,0)}\\
+    &=f(1,0)-f(1,0)\\
+    &=\boxed{0}\tag{or find what $f(1,0)-f(1,0)$ is yourself}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{section}{Problem 5}\textbf{Problem 5}
+
+How are the constants $a$, $b$, and $c$ related if the differential form\begin{equation*}
+    (ay^2+2czx)\,dx+y(bx+cz)\,dy+(ay^2+cx^2)\,dz
+\end{equation*}
+is exact?
+
+\Solution
+
+If the differential form \begin{equation*}
+    (ay^2+2czx)\,dx+y(bx+cz)\,dy+(ay^2+cx^2)\,dz
+\end{equation*}
+is exact, then  $\displaystyle \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$, $\displaystyle \frac{\partial M}{\partial z}=\frac{\partial P}{\partial x}$, and $\displaystyle \frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}$. Therefore,
+
+\phantomsection
+\addcontentsline{toc}{subsection}{M and N}
+For $\displaystyle \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial y}&=\frac{\partial N}{\partial x}\\
+    2ay&=by
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{M and P}
+For $\displaystyle \frac{\partial M}{\partial z}=\frac{\partial P}{\partial x}$,
+\begin{align*}
+    \frac{\partial M}{\partial z}&=\frac{\partial P}{\partial x}\\
+    2cx&=2cx
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{N and P}
+For $\displaystyle \frac{\partial N}{\partial z}=\frac{\partial P}{\partial y}$,
+\begin{align*}
+    \frac{\partial N}{\partial z}&=\frac{\partial M}{\partial y}\\
+    cy&=2ay
+\end{align*}
+We now have the following system of equation to solve.
+\begin{align*}
+    2ay&=by\implies 2a=b\\
+    2cx&=2cx\implies \text{nothing lol}\\
+    cy&=2ay\implies c=2a
+\end{align*}
+In total, $a$ is our independent variable. The variables $b$ and $c$ depend on $a$ since $b=2a$ and $c=2a$. Since $b=2a$ and $c=2a$, $b=c$.
+
+\qed
+\end{document}

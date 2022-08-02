@@ -1,0 +1,109 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry} 
+% are all of these packages really necessary?
+% no.
+% i'm just too lazy to only grab the packagse i want for a specific
+% docuemnt, so i just glob all of my most commonly used packages together
+% this is bad practice.
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, mdframed, color, soul, calc, enumitem, mdframed, xcolor, geometry}
+
+% Line thickness of the foot rule line 
+\renewcommand{\footrulewidth}{0.8pt}
+
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+\newcommand{\lrp}[1]{\left( #1 \right)}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\lra}[1]{\left\langle #1 \right\rangle}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\iintR}[0]{\iint\limits_{R}}
+\renewcommand{\u}[0]{\mathbf{u}}
+\renewcommand{\i}[0]{\mathbf{{i}}}
+\renewcommand{\j}[0]{\mathbf{{j}}}
+\renewcommand{\k}[0]{\mathbf{{k}}}
+\newcommand{\T}[0]{\mathbf{T}}
+\newcommand{\N}[0]{\mathbf{N}}
+\newcommand{\B}[0]{\mathbf{B}}
+\renewcommand{\r}[0]{\mathbf{r}}
+\renewcommand{\a}[0]{\mathbf{a}}
+\renewcommand{\v}[0]{\mathbf{v}}
+\newcommand{\F}[0]{\mathbf{F}}
+\newcommand{\G}[0]{\mathbf{G}}
+\newcommand{\n}[0]{\mathbf{n}}
+\newcommand{\eqq}[0]{\stackrel{?}{=}}
+\renewcommand{\arraystretch}{1.25}
+
+\pagestyle{fancy}
+\lhead{Christina Phan}
+\rhead{MAT 21D} 
+\chead{\textbf{Homework 24}}
+
+\setlength{\parindent}{0pt} % i prefer no indents (this is bad practice)
+
+\begin{document}
+\begin{mdframed}[backgroundcolor=gray!20]
+\textbf{Problem 4}
+
+If $\nabla \cdot \F_1=\nabla \cdot \F_2$ and $\nabla \times \F_1=\nabla \times \F_2$ over a region $D$ with oriented boundary surface $S$ such that $\F_1\cdot\n=\F_2\cdot\n$ on $S$, show that $\F_1=\F_2$ throughout $D$.
+\end{mdframed}
+\begin{mdframed}[backgroundcolor=white,linecolor=white]\textbf{Solution}
+
+Let $\F=\F_1-\F_2$. 
+
+Since $\nabla \cdot \F_1=\nabla \cdot \F_2$, $\nabla \times \F_1=\nabla \times \F_2$, and $\F_1\cdot \n = \F_2\cdot \n$,
+\begin{align*}
+    \nabla \cdot \F &=\nabla \cdot \lrp{\F_1 - \F_2}= \lrp{\nabla \cdot \F_1}-\lrp{\nabla \cdot \F_2}=0\\
+    \nabla \times \F&=\nabla \times\lrp{\F_1-\F_2}=\lrp{\nabla \times \F_1}-\lrp{\nabla \times \F_2}=\mathbf{0}\tag{\textit{not} a scalar}\\
+    \F\cdot \n &= \lrp{\F_1-\F_2}\cdot \n=\lrp{\F_1 \cdot \n}-\lrp{\F_2\cdot \n}=0
+\end{align*}
+Since $\mathbf{F}=\F_1-\F_2$ is defined over a region $D$ with oriented boundary surface $S$, the region $D$ is simply connected. 
+
+Since $\nabla \times \F=\mathbf{0}$ and the region $D$ is simply connected, $\F$ is conservative. Therefore, there exists a potential function $f$ such that $\F=\nabla f$.
+
+Let $\F=\nabla f$. Then,
+\begin{align*}
+    \nabla \cdot \F &= 0\\
+    \implies \nabla \cdot \lrp{\nabla f}&=0\\
+    \nabla^2 f &= 0
+\end{align*}
+Since $\nabla^2 f = 0$, $f$ is harmonic. Since $f$ is harmonic, \begin{align*}
+   \iiint_D \norm{\nabla f}^2\,dV &=\iint_S f\nabla f \cdot \n\,d\sigma\tag{see Homework 24, 1(b)}\\
+   \iiint_D \norm{\F}^2\,dV&=\iint_S f\lrp{\nabla f \cdot \n}\,d\sigma\tag{$f$ is a scalar function}\\
+   &=\iint_S f\lrp{\F\cdot\n}\,d\sigma\\
+   &=\iint_S f\lrp{0}\,d\sigma\\
+   &=\iint_S 0\,d\sigma\\
+   &=0
+\end{align*}
+Since $\displaystyle \iiint_D \norm{\F}^2\,dV=0$ and we know $\norm{\F}^2\geq 0$ (magnitude of a vector is at least $0$), the only way for $\displaystyle\iiint_D \norm{\F}^2\,dV$ to equal $0$ is if $\norm{\F}^2=0$. Therefore,
+\begin{align*}
+    \norm{\F}^2 &= 0\\
+    \F \cdot \F &= 0\\
+    \F &= \mathbf{0}
+\end{align*}
+Since $\F=\mathbf{0}$,
+\begin{align*}
+    \F_1 - \F_2 &= \mathbf{0}\\
+    \F_1 &= \F_2
+\end{align*}
+\qed
+\end{mdframed}
+\end{document}

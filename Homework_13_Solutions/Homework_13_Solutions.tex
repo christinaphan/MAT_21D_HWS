@@ -1,0 +1,511 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+% are all of these packages really necessary?
+% no.
+% i'm just too lazy to only grab the packages i want for a specific
+% document, so i just glob all of my most commonly used packages together
+% this is bad practice.
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, mdframed, soul, calc, enumitem, mdframed, xcolor, geometry, empheq, mathtools, tikz, pgfplots, caption, subcaption, hyperref}
+
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/,optimize command away=\includepdf]
+
+%tikzpicture
+\usepackage{tikz}
+\usepackage{scalerel}
+\usepackage{pict2e}
+\usepackage{tkz-euclide}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns,arrows.meta}
+\usetikzlibrary{shadows}
+\usetikzlibrary{external}
+
+%pgfplots
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{statistics}
+\usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{polar}
+
+\tikzset{external/export=true}
+\pgfplotsset{
+    standard/.style={
+    axis line style = thick,
+    trig format=rad,
+    enlargelimits,
+    axis x line=middle,
+    axis y line=middle,
+    enlarge x limits=0.15,
+    enlarge y limits=0.15,
+    every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+    every axis y label/.style={at={(current axis.above origin)},anchor=south east}
+    }
+}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Homework 13 Solutions},
+    pdfpagemode=UseOutlines,
+    bookmarksopen=true,
+    pdfauthor={Christina Phan}
+}
+\newcommand{\lrp}[1]{\left( #1 \right)}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\lra}[1]{\left\langle #1 \right\rangle}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\iintR}[0]{\iint\limits_{R}}
+\renewcommand{\u}[0]{\mathbf{u}}
+\renewcommand{\i}[0]{\mathbf{i}}
+\renewcommand{\j}[0]{\mathbf{j}}
+\renewcommand{\k}[0]{\mathbf{k}}
+\newcommand{\T}[0]{\mathbf{T}}
+\newcommand{\N}[0]{\mathbf{N}}
+\newcommand{\B}[0]{\mathbf{B}}
+\renewcommand{\r}[0]{\mathbf{r}}
+\renewcommand{\a}[0]{\mathbf{a}}
+\renewcommand{\v}[0]{\mathbf{v}}
+\newcommand{\F}[0]{\mathbf{F}}
+
+\geometry{letterpaper, portrait, margin=1in}
+\renewcommand{\footrulewidth}{0.8pt}
+\setlength\parindent{0pt}
+\pagestyle{fancy}
+\lhead{Christina Phan}
+\rhead{MAT 21D} 
+\chead{\textbf{Homework 13 Solutions}}
+
+\newcommand{\Solution}{\textit{Solution}}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\phantomsection
+\addcontentsline{toc}{section}{Problem 1 (Parts)}\textbf{Problem 1 (Parts)}
+
+Find the work done by the force $\F$ over the curve:
+
+\phantomsection
+\addcontentsline{toc}{subsection}{1(a)}\textbf{(a)} $\F\lrp{x,y,z}=\lra{xy,y,-yz}$, $\r(t)=\lra{t,t^2,t}$, $0\leq t\leq 1$
+
+\Solution
+
+Recall that work done by the force $\F$ over a curve is
+\begin{align*}
+    W&=\int_C M\,dx + N\,dy + P\,dz
+\end{align*}
+Note that this is \textit{one} of the many ways to define work. I am using the definition of work that is convenient for this problem. Plus, remembering the formula this way helps you remember the other identical formulas hahaha
+
+If $\r(t)=\lra{t,t^2,t}$, then
+\begin{align*}
+    \F\lrp{\r(t)}&=\lra{(t)(t^2),t^2,-(t^2)(t)}=\lra{t^3,t^2,-t^3}\\
+    \r'(t)&=\lra{1,2t,1}
+\end{align*}
+Let's find the work for this problem.
+\begin{align*}
+    W&=\int_0^1 (t^3)(1)+(t^2)(2t^3)+(-t^3)(1)\,dt\\
+    &=\int_0^1 t^3 +2t^3 - t^3\,dt\\
+    &=\int_0^1 2t^3\,dt\\
+    &=\lrb{\frac{1}{2}t^4}_0^1\\
+    &=\boxed{\frac{1}{2}}
+\end{align*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{1(b)}\textbf{(b)} $\F\lrp{x,y,z}=\lra{6z,y^2,12x}$, $\displaystyle\r(t)=\lra{\sin t, \cos t, \frac{t}{6}}$, $0\leq t \leq 2\pi$
+
+\Solution
+
+Recall that work done by the force $\F$ over a curve is
+\begin{align*}
+    W&=\int_C M\,dx + N\,dy + P\,dz
+\end{align*}
+Note that this is \textit{one} of the many ways to define work. I am using the definition of work that is convenient for this problem. Plus, remembering the formula this way helps you remember the other identical formulas hahaha
+
+If $\displaystyle\r(t)=\lra{\sin t, \cos t, \frac{t}{6}}$, then
+\begin{align*}
+    \F\lrp{\r(t)}&=\lra{6\lrp{\frac{t}{6}},\cos^2t,12\sin t}=\lra{t,\cos^2 t, 12\sin t}\\
+    \r'(t)&=\lra{\cos t, -\sin t, \frac{1}{6}}
+\end{align*}
+Let's find the work for this problem.
+\begin{align*}
+    W&=\int_0^{2\pi} (t)(\cos t)+(\cos^2t)(- \sin t) + \lrp{12\sin t}\lrp{\frac{1}{6}}\,dt\\
+    &=\int_0^{2\pi} t\cos t - \sin t\cos^2t + 2\sin t\,dt\\
+    &=\int_0^{2\pi}t\cos t\,dt + \int_0^{2\pi}\sin t \cos ^2 t \,dt + \int_0^{2\pi} 2\sin t\,dt\\
+    &u=t\hspace{2em}dv=\cos t\,dt\\
+    &du=dt\hspace{2em}v=\sin t\\
+    &=\lrp{\lrb{t\sin t}_0^{2\pi}-\int_0^{2\pi}\sin t\,dt}+\lrb{\frac{1}{3}\cos^3t}_0^{2\pi} +\lrb{-2\cos t}_0^{2\pi}\\
+    &=\lrp{2\pi \sin 2\pi - 0\sin 0}-\lrb{-\cos t}_0^{2\pi}+\lrp{\frac{1}{3}\cos ^3 2\pi -\frac{1}{3}\cos^3 0 }+\lrp{-2 \cos 2\pi - (-2\cos 0)}\\
+    &=(0-0)-\lrp{-\cos 2\pi - (-\cos 0)}+\lrp{\frac{1}{3}-\frac{1}{3}}+\lrp{-2 -(-2)}\\
+    &=(0)-\lrp{-1-(-1)}+(0)+(0)\\
+    &=\boxed{0}
+\end{align*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{1(c)}\textbf{(c)} $\F\lrp{x,y}$ is the gradient of $f(x,y)=(x+y)^2$, counterclockwise around the circle $x^2+y^2=4$ starting and ending at $(2,0)$
+
+\Solution
+
+If $\F\lrp{x,y}$ is the gradient of $f(x,y)=(x+y)^2$, then
+\begin{align*}
+    \F &= \nabla f\\
+    &=\lra{\frac{\partial f}{\partial x},\frac{\partial f}{\partial y}}\\
+    &=\lra{2(x+y),2(x+y)}
+\end{align*}
+If we're going counterclockwise around the circle $x^2+y^2=4$ starting and ending at $(2,0)$, let's find $\r(t)$ using our good old pal the helix, $\r(t)=\lra{a \cos t,a\sin t, t}$. Since the radius of the unit circle is $2$, $\r(t)=\lra{2\cos t, 2\sin t}$.
+
+Since we're going counterclockwise from $(2,0)$ to $(2,0)$, $0\leq t\leq 2\pi$ since at $\r(0)=\lra{2,0}$ and at $t=2\pi$, $\r\lrp{2\pi}=\lra{2,0}$.
+
+If $\r(t)=\lra{2\cos t, 2\sin t}$,
+\begin{align*}
+    \F\lrp{\r(t)}&=\lra{2(2\cos t + 2\sin t),2(2\cos t + 2\sin t)}=\lra{4(\cos t + \sin t), 4(\cos t + \sin t)}\\
+   \r'(t)&=\lra{-2\sin t, 2\cos t}
+\end{align*}
+Recall that work done by the force $\F$ over a curve is
+\begin{align*}
+    W&=\int_C M\,dx + N\,dy + P\,dz
+\end{align*}
+Note that this is \textit{one} of the many ways to define work. I am using the definition of work that is convenient for this problem. Plus, remembering the formula this way helps you remember the other identical formulas hahaha
+
+Let's find the work for this problem.
+\begin{align*}
+    W&=\int_0^{2\pi} \big(4(\cos t + \sin t)\big)\lrp{-2\sin t}+\big(4(\cos t + \sin t)\big)\lrp{2\cos t}\,dt\\
+    &=\int_0^{2\pi}-8\sin t\cos t - 8\sin^2 t + 8 \cos^2 t + 8\sin t \cos t\,dt\\
+    &=\int_0^{2\pi} -8\sin^2 t + 8\cos^2 t\,dt\\
+    &=\int_0^{2\pi} 8(\cos^2 t - \sin^2 t)\,dt\\
+    &=\int_0^{2\pi}8\cos 2t\,dt\tag{$\cos^2 t - \sin^2 t=\cos 2t$}\\
+    &=\lrb{4\sin 2t}_0^{2\pi}\\
+    &=4\sin 4\pi - 4\sin 0\\
+    &=0 - 0\\
+    &=\boxed{0}
+\end{align*}
+
+\phantomsection
+\addcontentsline{toc}{section}{Problem 2 (Parts)}\textbf{Problem 2 (Parts)} 
+
+Find the flow of the velocity field $\F$ along the curve:
+
+\phantomsection
+\addcontentsline{toc}{subsection}{2(a)}\textbf{(a)} $\displaystyle\F(x,y)=\lra{\frac{x}{y+1},\frac{y}{x+1}}$, $\r(t)=\lra{t^2,t}$, $0\leq t \leq 1$
+
+\Solution
+
+Recall that the flow of the velocity field $\F$ along a curve is
+\begin{align*}
+    \text{flow}&=\int_C M\,dx + N\,dy
+\end{align*}
+Note that this is \textit{one} of the many ways to define work. I am using the definition of work that is convenient for this problem. Plus, remembering the formula this way helps you remember the other identical formulas hahaha
+
+If $\r(t)=\lra{t^2,t}$, then
+\begin{align*}
+    \F\lrp{\r(t)}&=\lra{\frac{t^2}{t+1},\frac{t}{t^2+1}}\\
+    \r'(t)&=\lra{2t,1}
+\end{align*}
+Let's find the flow for this problem.
+\begin{align*}
+    \text{flow}&=\int_0^1 \lrp{\frac{t^2}{t+1}}\lrp{2t}+\lrp{\frac{t}{t^2+1}}\lrp{1}\,dt\\
+    &=\int_0^1 \frac{2t^3}{t+1}+\frac{t}{t^2+1}\,dt\\
+    &=\underbrace{\int_0^1 \frac{2t^3}{t+1}\,dt}_{u} + \underbrace{\int_0^1 \frac{t}{t^2+1}\,dt}_{v}\\
+    &u=t+1\implies t=u-1\hspace{2em}du=dt\\
+    &u(0)=1\hspace{9em}u(1)=2\\
+    &v=t^2+1\hspace{9em}dv=2t\,dt\\
+    &v(0)=1\hspace{9em}v(1)=2\\
+    &=\int_1^2 \frac{2(u-1)^3}{u}\,du+\frac{1}{2}\int_1^2 \frac{1}{v}\,dv\\
+    &=\int_1^2 \frac{2(u^3-3u^2+3u-1)}{u}\,du+\frac{1}{2}\lrb{\ln \left |v\right|}_1^2\\
+    &=2\int_1^2 (u^2 - 3u+3-\frac{1}{u}\,dt+\frac{1}{2}\lrp{\ln 2 - \ln 1}\\
+    &=2\lrb{\frac{1}{3}u^3-\frac{3}{2}u^2+3u-\ln \left|u\right|}_1^2 + \frac{1}{2}\lrp{\ln 2 - 0}\\
+    &=2\lrp{\lrp{\frac{1}{3}(2)^3 -\frac{3}{2}(2)^2+3(2)-\ln 2}-\lrp{\frac{1}{3}-\frac{3}{2}+3-\ln 1}}+\frac{1}{2}\ln 2\\
+    &=2\lrp{\lrp{\frac{8}{3}-\ln 2}-\lrp{\frac{11}{6}}}+\frac{1}{2}\ln 2\tag{use a calculator}\\
+    &=2\lrp{\frac{5}{6}-\ln 2}+\frac{1}{2}\ln 2\tag{use a calculator again...}\\
+    &=\frac{5}{3}-2\ln 2 + \frac{1}{2}\ln 2\\
+    &=\boxed{\frac{5}{3}-\frac{3}{2}\ln 2}
+\end{align*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{2(b)}\textbf{(b)} $\displaystyle\F(x,y,z)=\lra{-4xy,8y,2}$, $\r(t)=\lra{t,t^2,1}$, $0\leq t\leq 2$
+
+\Solution
+
+Recall that the flow of the velocity field $\F$ along a curve is
+\begin{align*}
+    \text{flow}&=\int_C M\,dx + N\,dy+ P\,dz
+\end{align*}
+Note that this is \textit{one} of the many ways to define work. I am using the definition of work that is convenient for this problem. Plus, remembering the formula this way helps you remember the other identical formulas hahaha
+
+If $\r(t)=\lra{t,t^2,1}$,
+\begin{align*}
+    \F\lrp{\r(t)}&=\lra{-4(t)(t^2),8t^2,2}=\lra{-4t^3,8t^2,2}\\
+    \r'(t)&=\lra{1,2t,0}
+\end{align*}
+Let's find the flow for this problem.
+\begin{align*}
+    \text{flow}&=\int_0^2 \lrp{-4t^3}\lrp{1}+\lrp{8t^2}\lrp{2t}+(2)(0)\,dt\\
+    &=\int_0^2 -4t^3 + 16t^3 + 0\,dt\\
+    &=\int_0^2 12t^3\,dt\\
+    &=\lrb{3t^4}_0^2\\
+    &=3(2)^4-3(0)^4\\
+    &=\boxed{48}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{2(c)}\textbf{(c)} $\displaystyle\F(x,y,z)=\lra{-y, x, 2}$, $\r(t)=\lra{-2\cos t, 2\sin t, 2t}$, $0\leq t \leq 2\pi$
+
+\Solution
+
+Recall that the flow of the velocity field $\F$ along a curve is
+\begin{align*}
+    \text{flow}&=\int_C M\,dx + N\,dy+ P\,dz
+\end{align*}
+Note that this is \textit{one} of the many ways to define work. I am using the definition of work that is convenient for this problem. Plus, remembering the formula this way helps you remember the other identical formulas hahaha
+
+If $\r(t)=\lra{-2\cos t, 2\sin t, 2t}$,
+\begin{align*}
+    \F\lrp{\r(t)}&=\lra{-2\sin t, -2\cos t, 2}\\
+    \r'(t)&=\lra{2\sin t, 2\cos t, 2}
+\end{align*}
+Let's find the flow for this problem.
+\begin{align*}
+    \text{flow}&=\int_0^{2\pi}\lrp{-2\sin t}\lrp{2\sin t}+\lrp{-2\cos t}\lrp{2\cos t}+\lrp{2}\lrp{2}\,dt\\
+    &=\int_0^{2\pi} -4\sin^2 t -4\cos ^2 t+4\,dt\\
+    &=\int_0^{2\pi}-4\lrp{\sin^2 t + \cos ^2 t}+4\,dt\\
+    &=\int_0^{2\pi} -4+4\,dt\tag{$\sin^2 t +\cos^2 t$}\\
+    &=\int_0^{2\pi} 0 \,dt\\
+    &=\boxed{0}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{section}{Problem 3}\textbf{Problem 3}
+
+Find the flux of the fields $\F_1(x,y)=\lra{2x,-3y}$ and $\F_2(x,y)=\lra{2x,x-y}$ across the circle 
+
+$\r(t)=\lra{a\cos t, a\sin t}$, $0\leq t \leq 2\pi$.
+
+\Solution
+
+Recall that the flux of a field $\F$ is
+\begin{align*}
+    \text{flux}&=\int_C M\,dy - N\,dx
+\end{align*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{F1 Flux}
+
+For $\F_1(x,y)=\lra{2x,-3y}$,
+
+If $\r(t)=\lra{a\cos t,a\sin t}$,
+\begin{align*}
+    \F_1 \lrp{\r(t)}&=\lrp{2a\cos t,-3a\sin t}\\
+    \r'(t)&=\lra{-a\sin t, a \cos t}
+\end{align*}
+Let's find the flux for $\F_1$.
+\begin{align*}
+    \text{flux}&=\int_0^{2\pi} \lrp{2a\cos t}\lrp{a \cos t}-\lrp{-3a\sin t}\lrp{-a \sin t}\,dt\\
+    &=\int_0^{2\pi} 2a^2 \cos ^2 t - 3a^2 \sin ^2 t\,dt\\
+    &=\int_0^{2\pi} 2a^2 \lrp{\frac{1}{2}(1+\cos 2t)}-3a^2\lrp{\frac{1}{2}(1-\cos 2t)}\,dt\tag{see note below}\\
+    &=\int_0^{2\pi}a^2(1+\cos 2t) -\frac{3a^2}{2}(1-\cos 2t)\,dt\\
+    &=\int_0^{2\pi} a^2 +a^2\cos 2t - \frac{3a^2}{2}+\frac{3a^2}{2}\cos 2t\,dt\\
+    &=\int_0^{2\pi} -\frac{a^2}{2}+\frac{5a^2}{2}\cos 2t\,dt\\
+    &=\lrb{-\frac{a^2}{2}t+\frac{5a^2}{4}\sin 2t}_0^{2\pi}\\
+    &=\lrp{-\frac{a^2}{2}(2\pi) +\frac{5a^2}{4}\sin 4\pi}-\lrp{0+\frac{5a^2}{4}\sin 0}\\
+    &=-a^2\pi
+\end{align*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{F2 Flux}
+
+For $\F_2(x,y)=\lra{2x,x-y}$,
+
+If $\r(t)=\lra{a\cos t,a\sin t}$,
+\begin{align*}
+    \F_2 \lrp{\r(t)}&=\lrp{2a\cos t, a\cos t - a\sin t}\\
+    \r'(t)&=\lrp{-a\sin t, a \cos t}
+\end{align*}
+Let's find the flux for $\F_2$.
+\begin{align*}
+    \text{flux}&=\int_0^{2\pi}\lrp{2a\cos t}\lrp{a\cos t}-\lrp{a\cos t-a\sin t}\lrp{-a \sin t}\,dt\\
+    &=\int_0^{2\pi} 2a^2 \cos ^2 t - \lrp{-a^2\cos t \sin t + a^2 \sin ^2 t}\,dt\\
+    &=\int_0^{2\pi} 2a^2\lrp{\frac{1}{2}\lrp{1+\cos 2t}}+a^2\lrp{\frac{1}{2}\sin 2t}-a^2\lrp{\frac{1}{2}\lrp{1-\cos 2t}}\,dt\tag{see note below}\\
+    &=\int_0^{2\pi}a^2\lrp{1+\cos 2t}+\frac{a^2}{2}\sin 2t-\frac{a^2}{2}\lrp{1-\cos 2t}\,dt\\
+    &=\int_0^{2\pi}a^2 +a^2\cos 2t + \frac{a^2}{2}\sin 2t - \frac{a^2}{2}+\frac{a^2}{2}\cos 2t\,dt\\
+    &=\int_0^{2\pi} \frac{a^2}{2}+\frac{3a^2}{2}\cos 2t+\frac{a^2}{2}\sin 2t\,dt\\
+    &=\lrb{\frac{a^2}{2}t+\frac{3a^2}{4}\sin 2t - \frac{a^2}{4}\cos 2t}_0^{2\pi}\\
+    &=\lrp{\frac{a^2}{2}(2\pi)+\frac{3a^2}{4}\sin 2(2\pi)-\frac{a^2}{4}\cos 2(2\pi)}-\lrp{0 + \frac{3a^2}{4}\sin 0 - \frac{a^2}{4}\cos 0}\\
+    &=\lrp{a^2\pi +0-\frac{a^2}{4}}-\lrp{0+0-\frac{a^2}{4}}\\
+    &=\boxed{a^2\pi}
+\end{align*}
+\textbf{Note}
+
+I use a number of trig tricks in this problem. They are
+\begin{align*}
+    \cos^2 t&=\frac{1}{2}\lrp{1+\cos 2t}\\
+    2\cos t\sin t &=\sin 2t\\
+    \sin^2 t &=\frac{1}{2}\lrp{1-\cos 2t}
+\end{align*}
+
+Our final answer is
+\begin{subequations}
+    \begin{empheq}[box=\widefbox]{align}
+       \text{flux of }{\F_1}&: -a^2\pi \nonumber\\
+       \text{flux of }{\F_2}&: a^2\pi \nonumber
+    \end{empheq}
+\end{subequations}
+\phantomsection
+\addcontentsline{toc}{section}{Problem 4}\textbf{Problem 4}
+
+Find the circulation and flux of the fields $\F_1(x,y)=\lra{x^2,y^2}$ and $\F_2(x,y)=\lra{-y,x}$
+around and across the closed path consisting of the semicircle $\r_1(t)=\lra{a\cos t, a\sin t}$, $0\leq t \leq \pi$ followed by the line segment $\r_2 (t)=\lra{t,0}$, $-a\leq t \leq a$.
+
+(This is two different vector fields over the same closed curve.)
+
+\Solution
+
+Recall that the circulation and flux of a field $\F$ are
+\begin{align*}
+    \text{circulation}&=\int_C M\,dx + N\,dy\\
+    \text{flux}&=\int_C M\,dy - N\,dx
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{F1}
+
+For $\F_1(x,y)=\lra{x^2,y^2}$,
+
+If $\r_1(t)=\lra{a\cos t, a\sin t}$ and $\r_2 (t)=\lra{t,0}$, then
+\begin{align*}
+    \F_1\lrp{\r_1(t)}&=\lra{a^2\cos^2 t, a^2\sin ^2 t}\\
+    \r_1'(t)&=\lra{-a \sin t ,a \cos t}\\
+    \F_1\lrp{\r_2(t)}&=\lra{t^2,0}\\
+    \r_2'(t)&=\lra{1,0}
+\end{align*}
+Let's find the circulation and flux for $\F_1$.
+\phantomsection
+\addcontentsline{toc}{subsubsection}{Circulation}
+For circulation,
+\begin{align*}
+    \text{circulation}&=\underbrace{\int_0^\pi \lrp{a^2\cos ^2 t}\lrp{-a\sin t}+\lrp{a^2\sin ^2 t}\lrp{a \cos t}\,dt}_{\r_1(t)} + \underbrace{\int_{-a}^a \lrp{t^2}\lrp{1}+\lrp{0}\lrp{0}\,dt}_{\r_2(t)}\\
+    &=\int_0^\pi -a^3 \sin t \cos ^2 t + a^3 \cos t \sin^2 t\,dt + \int_{-a}^a t^2\,dt\\
+    &=\lrb{\frac{1}{3}a^3\cos^3 t + \frac{1}{3}a^3 \sin^3 t}_0^\pi + \lrb{\frac{1}{3}t^3}_{-a}^a\tag{or break up left integral and do u-sub(s)}\\
+    &=\Bigg(\lrp{\frac{1}{3}a^3 \cos ^3 \pi + \frac{1}{3}a^3 \sin ^3 \pi}-\lrp{\frac{1}{3}a^3 \cos ^3 0 + \frac{1}{3}a^3 \sin ^3 0}\Bigg)+\Bigg(\frac{1}{3}a^3 - \lrp{\frac{1}{3}(-a)^3}\Bigg)\\
+    &=\Bigg(\lrp{-\frac{1}{3}a^3}-\lrp{\frac{1}{3}a^3}\Bigg)+\Bigg(\frac{1}{3}a^3-\lrp{-\frac{1}{3}a^3}\Bigg)\\
+    &=\lrp{-\frac{2}{3}a^3}+\lrp{\frac{2}{3}a^3}\\
+    &=0
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsubsection}{Flux}
+For flux
+\begin{align*}
+    \text{flux}&=\underbrace{\int_0^\pi \lrp{a^2\cos ^2 t}\lrp{a\cos t}-\lrp{a^2\sin ^2 t}\lrp{-a \sin t}\,dt}_{\r_1(t)} + \underbrace{\int_{-a}^a \lrp{t^2}\lrp{0}-\lrp{0}\lrp{1}\,dt}_{\r_2(t)}\\
+    &= \int_0^\pi a^3\cos^3 t + a^3 \sin ^3 t\,dt +\int_{-a}^a 0\,dt\\
+    &=a^3\int_0^\pi \cos^3 t \,dt + a^3\int_0^\pi  \sin^3 \,dt + 0\\
+    &=a^3\underbrace{\int_0^\pi \lrp{1-\sin^2 t}\cos t \,dt}_{u} +a^3\underbrace{\int_0^\pi \lrp{1-\cos^2 t }\sin t\,dt}_{v}\\
+    &=u=\sin t\hspace{2em}du=\cos t\,dt\\
+    &u(0)=0\hspace{2em}u(\pi)=0\\
+    &v=\cos t \hspace{2em}dv=-\sin t\,dt\\
+    &v(0)=1\hspace{2em}v(\pi)=-1\\
+    &=a^3\int_0^0 (1-u^2)\,du -a^3\int_1^{-1}(1-u^2)\,du\\
+    &=0 + a^3\int_{-1}^1 1-u^2\,du\\
+    &=a^3\lrb{u-\frac{1}{3}u^3}_{-1}^1\\
+    &=a^3\Bigg(\lrp{1-\frac{1}{3}}-\lrp{-1-\frac{1}{3}(-1)}\Bigg)\\
+    &=a^3\lrp{\frac{2}{3}+\frac{2}{3}}\\
+    &=\frac{4}{3}a^3
+\end{align*}
+
+\phantomsection
+\addcontentsline{toc}{subsection}{F2}
+For $\F_2(x,y)=\lra{-y,x}$,
+
+If $\r_1(t)=\lra{a\cos t, a\sin t}$ and $\r_2 (t)=\lra{t,0}$, then
+\begin{align*}
+    \F_2\lrp{\r_1(t)}&=\lra{-a\sin t, a \cos t}\\
+    \r_1'(t)&=\lra{-a \sin t ,a \cos t}\\
+    \F_2\lrp{\r_2(t)}&=\lra{0, t}\\
+    \r_2'(t)&=\lra{1,0}
+\end{align*}
+Let's find the circulation and flux for $\F_2$.
+
+\phantomsection
+\addcontentsline{toc}{subsubsection}{Circulation}
+For circulation,
+\begin{align*}
+    \text{circulation}&=\underbrace{\int_0^\pi \lrp{-a \sin t}\lrp{-a\sin t}+\lrp{a \cos t}\lrp{a \cos t}\,dt}_{\r_1(t)} + \underbrace{\int_{-a}^a \lrp{0}\lrp{1}+\lrp{t}\lrp{0}\,dt}_{\r_2(t)}\\
+    &=\int_0^\pi a^2 \sin^2 t + a^2 \cos ^2 t \,dt + \int_{-a}^a 0\,dt\\
+    &=\int_0^\pi a^2 \lrp{\sin^2 t +\cos^2 t}\, dt + 0\\
+    &=\int_0^\pi a^2\,dt\tag{$\sin^2 t + \cos ^2 t = 1$}\\
+    &=\lrb{a^2 t}_0^\pi\\
+    &=a^2 \pi
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsubsection}{Flux}
+For flux,
+\begin{align*}
+    \text{flux}&=\underbrace{\int_0^\pi \lrp{-a \sin t}\lrp{a\cos t}-\lrp{a \cos t}\lrp{-a \sin t}\,dt}_{\r_1(t)} + \underbrace{\int_{-a}^a \lrp{0}\lrp{0}-\lrp{t}\lrp{1}\,dt}_{\r_2(t)}\\
+    &=\int_0^\pi -a^2 \sin t \cos t + a^2 \sin t \cos t\,dt + \int_{-a}^a -t\,dt\\
+    &=\int_0^\pi 0 \,dt + \lrb{-\frac{1}{2}t^2}_{-a}^{a}\\
+    &=0 + \lrp{\frac{1}{2}a^2 - \lrp{\frac{1}{2}(-a)^2}}\\
+    &=\frac{1}{2}a^2 -\frac{1}{2}a^2\\
+    &=0
+\end{align*}
+Our final answer is
+\begin{subequations}
+    \begin{empheq}[box=\widefbox]{align}
+       \text{circulation of }{\F_1}&: 0\nonumber\\
+       \text{flux of }{\F_1}&: \frac{4}{3}a^3\nonumber\\
+       \text{circulation of }{\F_2}&: a^2\pi\nonumber\\
+       \text{flux of }{\F_2}&: 0\nonumber
+    \end{empheq}
+\end{subequations}
+\phantomsection
+\addcontentsline{toc}{section}{Problem 5}\textbf{Problem 5}
+
+Let $C$ be the ellipse in which the plane $2x+3y-z=0$ intersects the cylinder
+$x^2+y^2=12$. Without evaluating the integral directly, show that the circulation of
+$\F(x,y,z)=\lra{x,y,z}$ around $C$ is $0$.
+
+\Solution
+
+this problem makes me want to ff15. this is a badly written solution.
+
+Recall that the circulation of the field $\F$ around $C$ is
+\begin{align*}
+    \text{circulation}&=\int_a^b \F(\r(t))\cdot\frac{d\r}{dt}\,dt
+\end{align*}
+
+Let $\r(t)=\lra{\sqrt{12}\cos t, \sqrt{12}\sin t, 2\sqrt{12}\cos t + 3\sqrt{12}\sin t}$, $0\leq t\leq 2\pi$ where $x$ and $y$ come from the cylinder $x^2+y^2=12$ and $z=2x+3y$.
+
+If $\r(t)=\lra{\sqrt{12}\cos t, \sqrt{12}\sin t, 2\sqrt{12}\cos t + 3\sqrt{12}\sin t}$,
+\begin{align*}
+    \F\lrp{\r(t)}&=\lra{\sqrt{12}\cos t, \sqrt{12}\sin t, 2\sqrt{12}\cos t + 3\sqrt{12}\sin t}\\
+    \r'(t)&=\lra{-\sqrt{12}\sin t, \sqrt{12}\cos t, -2\sqrt{12}\sin t + 3\sqrt{12}\cos t}
+\end{align*}
+Let's find $\F \cdot\dfrac{d\r}{dt}$.
+\begin{align*}
+    \F \cdot\frac{d\r}{dt}&=\lrp{\sqrt{12}\cos t}\lrp{-\sqrt{12}\sin t}+\lrp{\sqrt{12}\sin t}\lrp{\sqrt{12}\cos t}+\lrp{2\sqrt{12}\cos t + 3\sqrt{12}\sin t}\lrp{-2\sqrt{12}\sin t+3\sqrt{12}\cos t}\\
+    &=0-48\sin t \cos t + 72 \cos^2t - 72 \sin^2 t + 108\sin t\cos t\\
+    &=60\sin t\cos t + 72 \lrp{\cos ^2 t-\sin ^2 t}\\
+    &=30\sin 2t + 72\cos 2t
+\end{align*}
+Let's find the circulation. Look at how we're not (\textit{technically}) directly evaluating the integral.
+\begin{align*}
+    \text{circulation}&=\int_0^{2\pi} 30\sin 2t + 72\cos 2t\,dt\\
+    &=\int_0^{2\pi}30\sin 2t\,dt + \int_0^{2\pi}72 \cos 2t\,dt\\
+    &=0 + 0\tag{periodicity of trig functions}\\
+    &=0
+\end{align*}
+\qed
+\end{document}

@@ -1,0 +1,277 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+% are all of these packages really necessary?
+% no.
+% i'm just too lazy to only grab the packages i want for a specific
+% document, so i just glob all of my most commonly used packages together
+% this is bad practice.
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, mdframed, soul, calc, enumitem, mdframed, xcolor, geometry, empheq, mathtools, tikz, pgfplots}
+
+\usetikzlibrary{shapes,positioning,intersections,quotes}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+
+\newcommand{\lrp}[1]{\left( #1 \right)}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\lra}[1]{\left\langle #1 \right\rangle}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\iintR}[0]{\iint\limits_{R}}
+
+\geometry{letterpaper, portrait, margin=1in}
+\renewcommand{\footrulewidth}{0.8pt}
+\setlength\parindent{0pt}
+\pagestyle{fancy}
+\lhead{Christina Phan}
+\rhead{MAT 21D} 
+\chead{\textbf{Homework 1 Solutions}}
+
+\newcommand{\Solution}{\textit{Solution}}
+ \pgfplotsset{compat=1.18}
+\begin{document}
+\textbf{Problem 1}
+
+Evaluate the integral.
+
+\textbf{(a)} $\displaystyle \int_0^2\!\int_{-1}^{1}x-y \,dy \,dx$
+
+\Solution
+\begin{align*}
+    \int_0^2\!\int_{-1}^{1}x-y \,dy \,dx&=\int_0^2\left[xy-\frac{1}{2}y^2\right]_{-1}^{1}\,dx\\
+    &=\int_0^2\left(x-\frac{1}{2}\right)-\lrp{-x-\frac{1}{2}}\,dx\\
+    &=\int_0^2 2x\,dx\\
+    &=\left[x^2\right]_0^2\\
+    &=\boxed{4}
+\end{align*}
+\textbf{(b)} $\displaystyle \int_0^3\int_{-2}^0(x^2y-2xy)\,dy\,dx$
+
+\Solution
+\begin{align*}
+    \int_0^3\int_{-2}^0x^2y-2xy\,dy\,dx&=\int_0^3\lrb{\frac{1}{2}x^2y^2-xy^2}_{-2}^0\,dx\\
+    &=\int_0^3\lrp{0-0}-\lrp{\frac{1}{2}x^2(-2)^2-x(-2)^2}\,dx\\
+    &=\int_0^3 -2x^2+4x\,dx\\
+    &=\lrb{-\frac{2}{3}x^3+2x^2}_0^3\\
+    &=\lrp{-\frac{2}{3}(3)^3+2(3)^2}-(0+0)\\
+    &=\boxed{0}
+\end{align*}
+\newpage
+\textbf{(c)} $\displaystyle \int_0^1\int_0^1\frac{y}{1+xy}\,dx\,dy$
+
+\Solution
+\begin{align*}
+    \int_0^1\int_0^1\frac{y}{1+xy}\,dx\,dy&=\int_0^1\lrb{\ln\left|1+xy\right|}_0^1\,dy\\
+    &=\int_0^1\ln\left|1+y\right|\,dy\\
+    &u=1+y\hspace{2em}du=dy\\
+    &u(0)=1\hspace{2em}u(1)=2\\
+    &=\int_1^2\ln|u|\,du\\
+    &v=\ln\left|u\right|\hspace{2em}dw=du\\
+    &dv=\frac{1}{u}du\hspace{2em}w=u\\
+    &=\lrb{u\ln\left|u\right|}_1^2-\int_1^21\,du\\
+    &=(2\ln 2)-(\ln 1) - \lrb{u}_1^2\\
+    &=2\ln 2 - \big((2)-(1)\big)\\
+    &=\boxed{2\ln 2 - 1}
+\end{align*}
+\textbf{(d)} $\displaystyle \int_0^1\int_1^2xye^x\,dy\,dx$
+
+\Solution
+\begin{align*}
+    \int_0^1\int_1^2xye^x\,dy\,dx&=\int_0^1\lrb{\frac{1}{2}xy^2e^x}_1^2\,dx\\
+    &=\int_0^1\frac{1}{2}x(2)^2e^x-\frac{1}{2}x(1)^2e^x\,dx\\
+    &=\int_0^1\frac{3}{2}xe^x\, dx\\
+    &\hspace{1em}u=\frac{3}{2}x \hspace{2em}dv=e^x\,dx\\
+    &\hspace{1em}du=\frac{3}{2}\,dx\hspace{2em}v=e^x\\
+    &=\lrb{\frac{3}{2}xe^x}_0^1-\int_0^1\frac{3}{2}e^x\\
+    &=\frac{3}{2}e-\lrb{\frac{3}{2}e^x}_0^1\\
+    &=\frac{3}{2}e-\lrp{\frac{3}{2}e-\frac{3}{2}}\\
+    &=\boxed{\frac{3}{2}}
+\end{align*}
+\newpage
+\textbf{(e)} $\displaystyle \int_{-1}^2\int_0^{\pi/2}y\sin x\,dx\,dy$
+
+\Solution
+\begin{align*}
+    \int_{-1}^2\int_0^{\pi/2}y\sin x\,dx\,dy&=\int_{-1}^2\lrb{-y\cos x}_0^{\pi/2}\,dy\\
+    &=\int_{-1}^2\lrp{-y\cos\frac{\pi}{2}}-\lrp{-y\cos0}\,dy\\
+    &=\int_{-1}^2 y\,dy\\
+    &=\lrb{\frac{1}{2}y^2}_{-1}^2\\
+    &=\frac{1}{2}(2)^2-\frac{1}{2}(-1)^2\\
+    &=\boxed{\frac{3}{2}}
+\end{align*}
+\textbf{(f)} $\displaystyle \int_1^4\int_1^e\frac{\ln x}{xy}\,dx\,dy$
+
+\Solution
+\begin{align*}
+    \int_1^4\int_1^e\frac{\ln x}{xy}\,dx\,dy\\
+    &u=\ln x \hspace{2em} du=\frac{1}{x}\,dx\\
+    &u(1)=\ln 1 = 0\hspace{2em}u(e)=\ln e= 1\\
+    &=\int_1^4\int_0^1 \frac{u}{y}\,du\,dy\\
+    &=\int_1^4\lrb{\frac{u^2}{2y}}_0^1\,dy\\
+    &=\int_1^4\frac{1}{2y}\,dy\\
+    &=\lrb{\frac{1}{2}\ln\left|y\right|}_1^4\\
+    &=\lrp{\frac{1}{2}\ln 4}-\lrp{\frac{1}{2}\ln 1}\\
+    &=\ln 4^{1/2}-0\\
+    &=\boxed{\ln 2}
+\end{align*}
+\newpage
+\textbf{Problem 2}
+
+Find all values of $c$ such that $\displaystyle \int_{-1}^c\int_0^2 xy+1\,dy\,dx=4+4c$
+
+\Solution
+\begin{align*}
+    \int_{-1}^c\int_0^2 xy+1\,dy\,dx&=\int_{-1}^c\lrb{\frac{1}{2}xy^2+y}_0^2\,dx\\
+    &=\int_{-1}^c (2x+2)-(0+0)\,dx\\
+    &=\lrb{x^2+2x}_{-1}^c\\
+    &=(c^2+2c)-(1-2)\\
+    &=c^2+2c+1
+\end{align*}
+We know that $\displaystyle \int_{-1}^c\int_0^2 xy+1\,dy\,dx=4+4c$. Therefore,
+\begin{align*}
+    \int_{-1}^c\int_0^2 xy+1\,dy\,dx=4+4c&=c^2+2c+1\\
+    4+4c&=c^2+2c+1\\
+    0&=c^2-2c-3\\
+    0&=(c-3)(c+1)\\
+    \alignedbox{c=3\text{ or }}{c=-1}
+\end{align*}
+\textbf{Problem 3 (Parts)}
+
+Evaluate the integral over the rectangle $R$.
+
+\textbf{(a)}
+$\displaystyle\iint_R e^{x-y}\,dA$, $ 0\leq x\leq \ln 2$, $0\leq y\leq \ln 2$
+
+\Solution
+
+For this problem, it really doesn't matter which variable we integrate with respect to first. It's just preference.
+\begin{align*}
+    \iint_R e^{x-y}\,dA&=\int_0^{\ln 2}\int_0^{\ln 2}e^{x-y}\,dy\,dx\\
+    &=\int_0^{\ln 2}\lrb{-e^{x-y}}_0^{\ln 2}\,dx\\
+    &=\int_0^{\ln 2}\lrp{-e^{x-\ln 2}}-\lrp{-e^{x}}\,dx\\
+    &=\lrb{-e^{x-\ln 2}+e^x}_0^{\ln 2}\\
+    &=\lrp{-e^{\ln 2-\ln 2}+e^{\ln 2}}-\lrp{-e^{0-\ln 2}+e^0}\\
+    &=\lrp{-1+2}-\lrp{-\frac{1}{2}+1}\\
+    &=\boxed{\frac{1}{2}}
+\end{align*}
+\newpage
+\textbf{(b)} $\displaystyle\iint_R\lrp{\frac{\sqrt{x}}{y^2}}\,dA$, $ 0\leq x \leq 4$, $1\leq y \leq 2$
+
+\Solution
+
+It really doesn't matter which variable we integrate with respect to first. However, integrating with respect to $y$ first seems a little bit more ideal in this problem (I hate dealing with square roots).
+\begin{align*}
+    \iint_R\lrp{\frac{\sqrt{x}}{y^2}}\,dA&=\int_0^4\int_1^2\frac{\sqrt{x}}{y^2}\,dy\,dx\\
+    &=\int_0^4\lrb{-\frac{\sqrt{x}}{y}}_1^2\\
+    &=\int_0^4\lrp{-\frac{\sqrt{x}}{2}}-\lrp{-\frac{\sqrt{x}}{1}}\,dx\\
+    &=\int_0^4\frac{\sqrt{x}}{2}\,dx\\
+    &=\lrb{\frac{1}{3}x^{\frac{3}{2}}}_0^4\\
+    &=\lrp{\frac{1}{3}(4)^{\frac{3}{2}}}-(0)\\
+    &=\boxed{\frac{8}{3}}
+\end{align*}
+\textbf{(c)} $\displaystyle \iint_R xy\cos y\,dA$, $-1\leq x\leq 1$, $0\leq y\leq \pi$
+
+\Solution
+
+It really doesn't matter which variable we integrate with respect to first. However, integrating with respect to $y$ first seems a little bit more ideal in this problem (it's just preference).
+\begin{align*}
+    \iint_R xy\cos y\,dA&=\int_{-1}^1\int_0^\pi xy\cos y\,dy\,dx\\
+    &u= xy\hspace{2em} dv=\cos y\,dy\\
+    &du = x\,dy\hspace{2em}v=\sin y\\
+    &=\int_{-1}^1\lrp{\lrb{xy\sin y}_0^\pi-\int_0^\pi x\sin y\,dy}\,dx\\
+    &=\int_{-1}^1\lrp{(0-0)-\lrb{-x\cos y}_0^\pi}\,dx\\
+    &=\int_{-1}^1-\big(x-(-x)\big)\,dx\\
+    &=\int_{-1}^1 -2x\,dx\\
+    &=\lrb{-x^2}_{-1}^1\\
+    &=\lrp{-(1)^2}-\lrp{-(-1)^2}\\
+    &=\boxed{0}
+\end{align*}
+\newpage
+\textbf{(d)} $\displaystyle \iint_R \frac{y}{x^2y^2+1}\,dA$, $0\leq x\leq 1$, $0\leq y \leq 1$
+
+\Solution
+
+It really doesn't matter which variable we integrate with respect to first. However, integrating with respect to $x$ first seems a little bit more ideal in this problem (it's just preference).
+\begin{align*}
+    \iint_R \frac{y}{x^2y^2+1}\,dA&=\iintR \frac{y}{(xy)^2+1}\,dA\\
+    &=\int_0^1\int_0^1\frac{y}{(xy)^2+1}\,dx\,dy\\
+    &=\int_0^1\lrb{\tan^{-1}(xy)}_0^1\,dy\\
+    &=\int_0^1\tan^{-1} y\,dy\\
+    &u=\tan^{-1}y \hspace{2em}dv=dy\\
+    &du=\frac{1}{y^2+1}\,dy\hspace{2em}v=y\\
+    &=\lrb{y\tan^{-1}y}_0^1-\int_0^1\frac{y}{y^2+1}\,dy\\
+    &w=y^2+1\hspace{2em}dw=2y\,dy\\
+    &w(0)=1\hspace{2em}w(1)=2\\
+    &=\lrp{\tan^{-1}(1)-0}-\frac{1}{2}\int_1^2\frac{1}{u}\,du\\
+    &=\frac{\pi}{4}-\frac{1}{2}\lrb{\ln|u|}_1^2\\
+    &=\frac{\pi}{4}-\frac{1}{2}\lrp{\ln 2-\ln 1}\\
+    &=\boxed{\frac{\pi}{4}-\frac{1}{2}\ln 2}
+\end{align*}
+\newpage
+\textbf{Problem 4}
+
+Find the volume of the region bounded above by the paraboloid $z=x^2+y^2$ and below by the square $-1\leq x \leq 1, -1\leq y\leq 1$.
+
+\Solution
+
+If we interpret this problem into a double integral, we get
+\begin{align*}
+    \iint_R z\,dA=\iint_R x^2+y^2\,dA
+\end{align*}
+where $R$ is our region $-1\leq x \leq 1, -1\leq y\leq 1$. Plugging in the bounds, we get
+\begin{align*}
+    \iint_R x^2+y^2\,dA&=\int_{-1}^1\int_{-1}^1 x^2+y^2\,dy\,dx\\
+    &=\int_{-1}^1\lrb{x^2y+\frac{1}{3}y^3}_{-1}^1\,dx\\
+    &=\int_{-1}^1 x^2+\frac{1}{3}\,dx\\
+    &=\int_{-1}^1 \lrp{x^2+\frac{1}{3}}-\lrp{-x^2-\frac{1}{3}}\,dx\\
+    &=\int_{-1}^1 2x^2 +\frac{2}{3}\,dx\\
+    &=\lrb{\frac{2}{3}x^3+\frac{2}{3}x}_{-1}^1\\
+    &=\lrp{\frac{2}{3}+\frac{2}{3}}-\lrp{-\frac{2}{3}-\frac{2}{3}}\\
+    &=\frac{4}{3}-\lrp{-\frac{4}{3}}\\
+    &=\boxed{\frac{8}{3}}
+\end{align*}
+Note that the order does not particularly matter for this problem. We just did $y$ first because $y$ not hahaha...
+
+\textbf{Problem 5} 
+
+If $f(x,y)$ is continuous over $R$: $a\leq x\leq b$, $c \leq y \leq d$ and
+\begin{equation*}
+    F(x,y)=\int_a^x\int_c^y f(u,v)\,dv\,du
+\end{equation*}
+on the interior of $R$, find the second partial derivatives $F_{xy}$ and $F_{yx}$
+
+\Solution
+
+For $F_{xy}$,
+
+If $f(x,y)$ is continuous over $R$, then $f(u,v)$ is a continuous function of $v$ when $u$ is a constant value (frozen). Let's have $g(u,v)$ represent the antiderivative of $f(u,v)$ with respect to $v$. Therefore,
+\begin{align*}
+    F(x,y)&=\int_a^x\int_c^y f(u,v)\,dv\,du=\int_a^x \lrb{g(u,v)}_c^y\,du=\int_a^x g(u,y)- g(u,c)\,du\\
+    \implies F_x &= \frac{\partial }{\partial x}\int_a^x g(u,y)- g(u,c)\,du=g(x,y)-g(x,c)\tag{think back to FTC!}\\
+    \implies F_{xy}&=\frac{\partial}{\partial y}\big(g(x,y)-g(x,c)\big)=f(x,y)-0=f(x,y)\tag{remember: anitderivatives}\\
+    \alignedbox{F_{xy}}{=f(x,y)}
+\end{align*}
+For $F_{yx}$,
+If $f(x,y)$ is continuous over $R$, then $f(u,v)$ is a continuous function of $u$ when $v$ is a constant value (frozen). Let's have $h(u,v)$ represent the antiderivative of $f(u,v)$ with respect to $u$. Therefore,
+\begin{align*}
+    F(x,y)&=\int_a^x\int_c^y f(u,v)\,dv\,du=\int_c^y\int_a^x f(u,v)\,du\,dv=\int_c^y\lrb{h(u,v)}_a^x\,dv=\int_c^y h(x,v) - h(a, v)\,du\\
+    \implies F_{y}&=\frac{\partial}{\partial y}\int_c^y h(x,v) - h(a, v)\,du=h(x,y)-h(a,y)\tag{think back to FTC!}\\
+    \implies F_{yx}&=\frac{\partial}{\partial x}\big(h(x,y)-h(a,y)\big)=f(x,y)-0=f(x,y)\tag{remember: antiderivatives}\\
+    \alignedbox{F_{yx}}{=f(x,y)}
+\end{align*}
+Note that we could not immediately conclude from $F_{xy}=f(x,y)$ that $F_{yx}=F_{xy}=f(x,y)$. This is because the symmetry of second derivatives only occurs when we \textit{know} that $F_x$ and $F_y$ are both differentiable. This was briefly mentioned in Discussion 3/29.
+\end{document}

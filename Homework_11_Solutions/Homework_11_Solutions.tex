@@ -1,0 +1,440 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+% are all of these packages really necessary?
+% no.
+% i'm just too lazy to only grab the packages i want for a specific
+% document, so i just glob all of my most commonly used packages together
+% this is bad practice.
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, mdframed, soul, calc, enumitem, mdframed, xcolor, geometry, empheq, mathtools, tikz, pgfplots, caption, subcaption, hyperref}
+
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/,optimize command away=\includepdf]
+
+%tikzpicture
+\usepackage{tikz}
+\usepackage{scalerel}
+\usepackage{pict2e}
+\usepackage{tkz-euclide}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns,arrows.meta}
+\usetikzlibrary{shadows}
+\usetikzlibrary{external}
+
+%pgfplots
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{statistics}
+\usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{polar}
+
+\tikzset{external/export=true}
+\pgfplotsset{
+    standard/.style={
+    axis line style = thick,
+    trig format=rad,
+    enlargelimits,
+    axis x line=middle,
+    axis y line=middle,
+    enlarge x limits=0.15,
+    enlarge y limits=0.15,
+    every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+    every axis y label/.style={at={(current axis.above origin)},anchor=south east}
+    }
+}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Homework 11 Solutions},
+    pdfpagemode=UseOutlines,
+    bookmarksopen=true,
+    pdfauthor={Christina Phan}
+}
+\newcommand{\lrp}[1]{\left( #1 \right)}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\lra}[1]{\left\langle #1 \right\rangle}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\iintR}[0]{\iint\limits_{R}}
+\renewcommand{\u}[0]{\mathbf{u}}
+\renewcommand{\i}[0]{\mathbf{i}}
+\renewcommand{\j}[0]{\mathbf{j}}
+\renewcommand{\k}[0]{\mathbf{k}}
+\newcommand{\T}[0]{\mathbf{T}}
+\newcommand{\N}[0]{\mathbf{N}}
+\newcommand{\B}[0]{\mathbf{B}}
+\renewcommand{\r}[0]{\mathbf{r}}
+\renewcommand{\a}[0]{\mathbf{a}}
+\renewcommand{\v}[0]{\mathbf{v}}
+
+\geometry{letterpaper, portrait, margin=1in}
+\renewcommand{\footrulewidth}{0.8pt}
+\setlength\parindent{0pt}
+\pagestyle{fancy}
+\lhead{Christina Phan}
+\rhead{MAT 21D} 
+\chead{\textbf{Homework 11 Solutions}}
+
+\newcommand{\Solution}{\textit{Solution}}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\phantomsection
+\addcontentsline{toc}{section}{Problem 1 (Parts)}\textbf{Problem 1 (Parts)}
+
+Evaluate the line integral:
+
+\phantomsection
+\addcontentsline{toc}{subsection}{1(a)}\textbf{(a)} $\displaystyle\int_{C}x-y+z-2\,ds$ where $C$ is the straight line segment $x=t$, $y=1-t$, $z=1$ from $(0,1,1)$ to $(1,0,1)$.
+
+\Solution
+
+We're pretty much given what $\r(t)$ and the bounds of $t$ from the problem. 
+
+We know $\r(t)=\lra{t,1-t,1}$ where $0\leq  t \leq 1$ because $x=t$, $y=1-t$, and $z=1$.
+
+We know that the interval of $t$ is between $0$ and $1$ because at $t=0$, $r(0)=\lra{0,1,1}$ and at $t=1$, $r(1)=\lra{1,0,1}$.
+
+If $\r(t)=\lra{t,1-t,1}$, then
+\begin{align*}
+    \r'(t)&=\lra{1,-1,0}\\
+    \norm{\r'(t)}&=\sqrt{(1)^2+(-1)^2+(0)^2}=\sqrt{1+1}=\sqrt{2}
+\end{align*}
+Let's evaluate the integral.
+\begin{align*}
+    \int_{C}x-y+z-2\,ds&=\int_0^1 \bigg((t)-(1-t)+(1)-2\bigg)\lrp{\sqrt{2}}\,dt\\
+    &=\sqrt{2}\int_0^1\lrp{2t-2}\,dt\tag{we can move constants outside}\\
+    &=\sqrt{2}\lrb{t^2-2t}_0^1\\
+    &=\sqrt{2}\lrp{(1)^2-2(1)}\\
+    &=\boxed{-\sqrt{2}}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{1(b)}\textbf{(b)} $\displaystyle\int_{C}\sqrt{x^2+y^2}\,ds$ where $C$ is the curve $\r(t)=\lra{4\cos t,4\sin t, 3t}$, $-2\pi\leq t \leq 2\pi$
+
+\Solution
+
+We're already given what $\r(t)$ and the bounds of $t$ are from the problem. 
+
+If $\r(t)=\lra{4\cos t,4\sin t, 3t}$, then
+\begin{align*}
+    \r'(t)&=\lra{-4\sin t, 4\cos t, 3}\\
+    \norm{\r'(t)}&=\sqrt{(-4\sin t)^2 +(4\cos t)^2 + (3)^2}=\sqrt{16\sin^2 t + 16\cos ^2 t + 9}=\sqrt{16 + 9}=\sqrt{25}=5
+\end{align*}
+Let's evaluate the integral.
+\begin{align*}
+    \int_{C}\sqrt{x^2+y^2}\,ds&=\int_{-2\pi}^{2\pi}\lrp{\sqrt{\lrp{4\cos t}^2+\lrp{4\sin t}^2}}\lrp{5}\,dt\\
+    &=5\int_{-2\pi}^{2\pi}\sqrt{16\cos^2 t+16\sin^2 t}\,dt\tag{we can move constants outside}\\
+    &=5\int_{-2\pi}^{2\pi} \sqrt{16(\cos^2 t + \sin^2 t)}\,dt\\
+    &=5\int_{-2\pi}^{2\pi}\sqrt{16}\,dt\tag{$\cos ^2 t + \sin ^2 t = 1$}\\
+    &=5\lrb{4t}_{-2\pi}^{2\pi}\\
+    &=5\lrp{4(2\pi)-4(-2\pi)}\\
+    &=\boxed{80\pi}
+\end{align*}
+\newpage
+\phantomsection
+\addcontentsline{toc}{subsection}{1(c)}\textbf{(c)} Integral of $\displaystyle f(x,y,z)=\frac{\sqrt{3}}{x^2+y^2+z^2}$ over $\r(t)=\lra{t,t,t}$, $1\leq t < \infty$
+
+\Solution
+
+We're already given what $\r(t)$ and the bounds of $t$ are from the problem. 
+
+If $\r(t)=\lra{t,t,t}$, then
+\begin{align*}
+    \r'(t)&=\lra{1,1,1}\\
+    \norm{\r'(t)}&=\sqrt{(1)^2+(1)^2+(1)^2}=\sqrt{3}
+\end{align*}
+Let's evaluate the integral.
+\begin{align*}
+    \int_C f(x,y,z)\,ds&=\int_C \frac{\sqrt{3}}{x^2+y^2+z^2}\,ds\\
+    &=\int_1^{\infty}\lrp{\frac{\sqrt{3}}{(t)^2+(t)^2+(t)^2}}\lrp{\sqrt{3}}\,dt\\
+    &=\lrp{\sqrt{3}}\lrp{\sqrt{3}}\int_1^{\infty}\frac{1}{3t^2}\,dt\tag{we can move constants outside}\\
+    &=3\lrp{\lim_{a\to\infty}\int_1^a\frac{1}{3t^2}\,dt}\\
+    &=3\lrp{\lim_{a\to\infty}\lrb{-\frac{1}{3t}}_1^a}\\
+    &=3\lrp{\lim_{a\to\infty}-\frac{1}{3a}-\lrp{-\frac{1}{3(1)}}}\\
+    &=3\lrp{-0+\frac{1}{3}}\\
+    &=\boxed{1}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{1(d)}\textbf{(d)} Integral of $\displaystyle f(x,y,z)=x+\sqrt{y}+z^2$ over the path from $(0,0,0)$ to $(1,1,1)$ given by $\r_1(t)=\lra{0,0,t}$, $\r_2(t)=\lra{0,t,1}$, and $\r_3(t)=\lra{t,1,1}$ ($0\leq t\leq 1$ for each curve)
+
+\Solution
+
+We're pretty much integrating $f(x,y,z)=x+\sqrt{y}+z^2$ along 3 curves, $C_1$, $C_2$, and $C_3$. These curves correspond to $\r_1(t)$, $\r_2(t)$, and $\r_3(t)$.
+
+If $\r_1(t)=\lra{0,0,t}$, then
+\begin{align*}
+    \r'_1(t)&=\lra{0,0,1}\\
+    \norm{\r'_1(t)}&=\sqrt{(0)^2+(0)^2+(1)^2}=\sqrt{1}=1
+\end{align*}
+If $\r_2(t)=\lra{0,t,1}$, then
+\begin{align*}
+    \r'_2(t)&=\lra{0,1,0}\\
+    \norm{\r'_2(t)}&=\sqrt{(0)^2+(1)^2+(0)^2}=\sqrt{1}=1
+\end{align*}
+If $\r_3(t)=\lra{t,1,1}$, then
+\begin{align*}
+    \r'_3(t)&=\lra{1,0,0}\\
+    \norm{\r'_3(t)}&=\sqrt{(1)^2+(0)^2+(0)^2}=\sqrt{1}=1
+\end{align*}
+Let's evaluate the integral(s).
+\begin{align*}
+    \int_{C_1} f(x,y,z)\,ds+ \int_{C_2} f(x,y,z)\,ds+ \int_{C_3} f(x,y,z)\,ds&=\underbrace{\int_0^1 \lrp{\lrp{0}+\lrp{\sqrt{0}}+\lrp{t}^2}\lrp{1}\,dt}_{C_1\text{ or }\r_1(t)}\\
+    &\hspace{2em}+\underbrace{\int_0^1 \lrp{\lrp{0}+\lrp{\sqrt{t}}+\lrp{1}^2}\lrp{1}\,dt}_{C_2 \text{ or } \r_2(t)}\\
+    &\hspace{3em}+\underbrace{\int_0^1 \lrp{\lrp{t}+\lrp{\sqrt{1}}+\lrp{1}^2}\lrp{1}\,dt}_{C_3 \text{ or }\r_3(t)}\\
+    &=\int_0^1 t^2\,dt+\int_0^1 \sqrt{t}+1\,dt+\int_0^1 t + 2\,dt\\
+    &=\lrb{\frac{1}{3}t^3}_0^1 +\lrb{\frac{2}{3}t^{3/2}+t}_0^1+\lrb{\frac{1}{2}t^2+2t}_0^1\\
+    &=\lrp{\frac{1}{3}(1)^3} +\lrp{\frac{2}{3}(1)^{3/2}+1}+\lrp{\frac{1}{2}(1)^2+2(1)}\\
+    &=\boxed{\frac{9}{2}}\tag{use a calculator}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{1(e)}\textbf{(e)} Integral of $\displaystyle f(x,y)=ye^{x^2}$ along $\r(t)=\lra{4t,-3t}$,$-1\leq t\leq 2$
+
+\Solution
+
+We're already given what $\r(t)$ and the bounds of $t$ are from the problem.
+
+If $\r(t)=\lra{4t,-3t}$, then
+\begin{align*}
+    \r'(t)&=\lra{4,-3}\\
+    \norm{\r'(t)}&=\sqrt{(4)^2+(-3)^2}=\sqrt{16+9}=\sqrt{25}=5
+\end{align*}
+Let's evaluate the integral.
+\begin{align*}
+    \int_C f(x,y)\,ds&=\int_C ye^{x^2}\,ds\\
+    &=\int_{-1}^2 \lrp{(-3t)e^{(4t)^2}}(5)\,dt\\
+    &=-15\int_{-1}^2 te^{16t^2}\,dt\tag{we can move constants outside}\\
+    &u=16t^2\hspace{2em}du=32t\,dt\\
+    &u(-1)=16\hspace{2em}u(2)=64\\
+    &=-\frac{15}{32}\int_{16}^{64}e^u\,du\\
+    &=-\frac{15}{32}\lrb{e^u}_{16}^{64}\\
+    &=\boxed{-\frac{15}{32}e^{64}+\frac{15}{32}e^{16}}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{1(f)}\textbf{(f)} $\displaystyle \int_C \frac{x^2}{y^{4/3}}\,ds$, where $C$ is the curve $x=t^2$, $y=t^3$, $1\leq t \leq 2$
+
+\Solution
+
+We're already given what $\r(t)$ and the bounds of $t$ are from the problem.
+
+If $\r(t)=\lra{t^2,t^3}$, then
+\begin{align*}
+    \r'(t)&=\lra{2t,3t^2}\\
+    \norm{\r'(t)}&=\sqrt{(2t)^2+(3t^2)^2}=\sqrt{4t^2+9t^4}
+\end{align*}
+Let's evaluate the integral.
+\begin{align*}
+    \int_C \frac{x^2}{y^{4/3}}\,ds&=\int_1^2 \lrp{\frac{(t^2)^2}{(t^3)^{4/3}}}\lrp{\sqrt{4t^2+9t^4}}\,dt\\
+    &=\int_1^2 \lrp{\frac{t^4}{t^4}}\lrp{\sqrt{4t^2+9t^4}}\,dt\\
+    &=\int_1^2 \sqrt{4t^2+9t^4}\,dt\\
+    &=\int_1^2\sqrt{t^2(4+9t^2)}\,dt\\
+    &=\int_1^2 t\sqrt{4+9t^2}\,dt\tag{$\sqrt{t^2(4+9t^2)}=\sqrt{t^2}\sqrt{4+9t^2}$}\\
+    &=\lrb{\frac{1}{27}(4+9t^2)^{3/2}}_1^2\tag{or do u-sub with $u=4+9t^2$}\\
+    &=\lrp{\frac{1}{27}\lrp{4+9(2)^2}^{3/2}}-\lrp{\frac{1}{27}\lrp{4+9(1)^2}^{3/2}}\\
+    &=\frac{40^{3/2}}{27}-\frac{13^{3/2}}{27}\\
+    &=\boxed{\frac{80\sqrt{10}-13\sqrt{13}}{27}}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{subsection}{1(g)}\textbf{(g)} $\displaystyle \int_C x+y\,ds$, where $C$ is $x^2+y^2=4$ in the first quadrant from $(2,0)$ to $(0,2)$
+
+\Solution
+
+Let's use the $x$ and $y$ parts of our good old pal the helix, $r(t)=\lra{a\cos t, a \sin t, t}$. Since the radius of the circle $x^2+y^2=4$ is $2$, our $\r$ must be $\r(t)=\lra{2\cos t, 2\sin t}$. 
+
+Graphically this makes sense, if you graph $\r(t)=\lra{2\cos t, 2\sin t}$ from $t=0$ to $t=2\pi$, you'll get a circle of radius $2$.
+
+We just want the first quadrant of the circle, so we'll go from $t=0$ to $t=\dfrac{\pi}{2}$.
+
+If $\r(t)=\lra{2\cos t,2\sin t}$, then
+\begin{align*}
+    \r'(t)&=\lra{-2\sin t, 2\cos t}\\
+    \norm{\r'(t)}&=\sqrt{(-2\sin t)^2 +(2\cos t)^2}=\sqrt{4\sin^2 t + 4\cos ^2 t}=\sqrt{4}=2
+\end{align*}
+Let's evaluate the integral.
+\begin{align*}
+    \int_C x+y\,ds&=\int_0^{\pi/2} \bigg((2\cos t)+\lrp{2\sin t}\bigg)\lrp{2}\,dt\\
+    &=\int_0^{\pi/2}(2)(\cos t + \sin t)(2)\,dt\\
+    &=(2)(2)\int_0^{\pi/2}\cos t + \sin t \,dt\tag{we can move constants outside}\\
+    &=4\lrb{\sin t - \cos t}_0^{\pi / 2}\\
+    &=4\Bigg(\lrp{\sin \frac{\pi}{2}-\cos \frac{\pi}{2}}-\lrp{\sin 0 - \cos 0}\Bigg)\\
+    &=4\bigg(\lrp{1-0}-\lrp{0-1}\bigg)\\
+    &=4(2)\\
+    &=\boxed{8}
+\end{align*}
+\phantomsection
+\addcontentsline{toc}{section}{Problem 2}\textbf{Problem 2}
+
+Use a line integral to find the area of one side of a ``wall" standing orthogonally on the
+curve $y=x^2$, $0\leq x\leq 2$, with its top on the surface $f(x,y)=x+\sqrt{y}$.
+
+\Solution
+
+\textit{Please PM me if this explanation is not sufficient.}
+
+Our function $f(x,y)$ is going to be $f(x,y)=x+\sqrt{y}$. Our $C$, curve we'll be going along, is going to be $y=x^2$.
+
+We need to parameterize our $C$, $y=x^2$, into $\r(t)$. Let's have $x=t$. If $x=t$, then $y=x^2=t^2$. Now we have both $x$ and $y$ in terms of $t$. Our $\r(t)$ must be $\r(t)=\lra{t,t^2}$ going from $t=0$ to $t=2$ since we know $0\leq x\leq 2\implies 0\leq t \leq 2
+$.
+
+If $\r(t)=\lra{t,t^2}$, then
+\begin{align*}
+    \r'(t)&=\lra{1,2t}\\
+    \norm{\r'(t)}&=\sqrt{(1)^2+(2t)^2}=\sqrt{1+4t^2}
+\end{align*}
+Let's evaluate the integral
+\begin{align*}
+    \int_C f(x,y)\,ds&=\int_C x+\sqrt{y}\,ds\\
+    &=\int_0^2 \lrp{(t)+\sqrt{(t^2)}}\lrp{\sqrt{1+4t^2}}\,dt\\
+    &=\int_0^2 {2t}\sqrt{1+4t^2}\,dt\\
+    &=\lrb{\frac{1}{6}(1+4t^2)^{3/2}}_0^2\tag{or do u-sub with $u=1+4t^2$}\\
+    &=\lrp{\frac{1}{6}\lrp{1+4(2)^2}^{3/2}}-\lrp{\frac{1}{6}\lrp{1+4(0)^2}^{3/2}}\\
+    &=\frac{17^{3/2}}{6}-\frac{1}{6}\\
+    &=\boxed{\frac{17\sqrt{17}-1}{6}}
+\end{align*}
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Problem 3 (Parts)}\textbf{Problem 3 (Parts)}
+
+We can use line integrals to calculate the mass and center of mass of a wire of
+variable density $\delta (x,y,z)$ along a curve $C$ in space. For example, if the curve is
+parametrized by $\r(t)$ for $a\leq t\leq b$, we can calculate the mass of the wire as
+\begin{equation*}
+    M=\int_C \delta(x,y,z)\,ds=\int_a^b \delta(\r(t))\lVert \r'(t)\rVert\,dt
+\end{equation*}
+We can similarly find integral formulas for the moments around the coordinate planes.
+
+\phantomsection
+\addcontentsline{toc}{subsection}{3(a)}\textbf{(a)} Find the center of mass of a wire of density $\delta (x,y,z)=15\sqrt{y+2}$ lying along the
+curve $\r(t)=\lra{0,t^2-1,2t}$, $-1\leq t\leq 1$.
+
+\Solution
+
+We're already given what $\r(t)$ and the bounds of $t$ are from the problem.
+
+If $\r(t)=\lra{0,t^2-1,2t}$, then
+\begin{align*}
+    \r'(t)&=\lra{0,2t,2}\\
+    \norm{\r'(t)}&=\sqrt{(0)^2 + (2t)^2 + (2)^2}=\sqrt{4t^2+4}
+\end{align*}
+Let's evaluate the integral.
+\begin{align*}
+    M&=\int_C \delta(x,y,z)\,ds\\
+    &=\int_C 15\sqrt{y+2}\,ds\\
+    &=\int_{-1}^1 \lrp{15\sqrt{(t^2-1)+2}}\lrp{\sqrt{4t^2+4}}\,dt\\
+    &=\int_{-1}^1\lrp{15\sqrt{(t^2-1)+2}}\lrp{2\sqrt{t^2+1}}\,dt\tag{$\sqrt{4t^2+4}=\sqrt{4(t^2+1)}=\sqrt{4}\sqrt{t^2+1}$}\\
+    &=(15)(2)\int_{-1}^1 \lrp{\sqrt{t^2 +1}}\lrp{\sqrt{t^2+1}}\,dt\tag{we can move constants outside}\\
+    &=30\int_{-1}^1 t^2 + 1\,dt\\
+    &=30\lrp{\frac{1}{3}t^3 + t}_{-1}^1\\
+    &=30\lrp{\lrp{\frac{1}{3}(1)^3+(1)}-\lrp{\frac{1}{3}(-1)^3+(-1)}}\\
+    &=30\lrp{\frac{4}{3}-\lrp{\frac{-4}{3}}}\\
+    &=30\lrp{\frac{8}{3}}\\
+    &=\boxed{80}
+\end{align*}
+By symmetry, $\overline{x}=\overline{z}=0$ (the density is dependent on only $y$, and $x(t)=0$),
+
+For $M_{xz}$,
+\begin{align*}
+    M_{xz}&=\int_C y\delta(x,y,z)\,ds\\
+    &=\int_C y(15\sqrt{y+2})\,ds\\
+    &=\int_{-1}^1 \lrp{t^2-1}\lrp{15\sqrt{(t^2-1)+2}}\lrp{\sqrt{4t^2+4}}\,dt\\
+    &=\int_{-1}^1\lrp{15(t^2-1)\sqrt{(t^2-1)+2}}\lrp{2\sqrt{t^2+1}}\,dt\tag{$\sqrt{4t^2+4}=\sqrt{4(t^2+1)}=\sqrt{4}\sqrt{t^2+1}$}\\
+    &=(15)(2)\int_{-1}^1(t^2-1)\lrp{\sqrt{t^2+1}}\lrp{\sqrt{t^2+1}}\,dt\tag{we can move constants outside}\\
+    &=30\int_{-1}^1 (t^2-1)(t^2+1)\,dt\\
+    &=30\int_{-1}^1 t^4 - 1\,dt\\
+    &=30\lrb{\frac{1}{5}t^5-t}_{-1}^1\\
+    &=30\lrp{\lrp{\frac{1}{5}(1)^5-1}-\lrp{\frac{1}{5}(-1)^5-(-1)}}\\
+    &=30\lrp{\frac{-4}{5}-\frac{4}{5}}\\
+    &=30\lrp{-\frac{8}{5}}\\
+    &=-48
+\end{align*}
+Our final answer is
+\begin{subequations}
+    \begin{empheq}[box=\widefbox]{align}
+        \overline{x}&=0\nonumber\\
+        \overline{y}&=\frac{M_{xz}}{M}=\frac{-48}{80}=-\frac{3}{5}\nonumber\\
+         \overline{z}&=0\nonumber\\
+        \text{center of mass:}&
+        \lrp{0,-\frac{3}{5},0}\nonumber
+    \end{empheq}
+\end{subequations}
+\phantomsection
+\addcontentsline{toc}{subsection}{3(b)}\textbf{(b)} Find the center of mass of a thin wire lying along the curve $\r(t)=\lra{t,2t,\frac{2}{3}t^{3/2}}$, $0\leq t\leq 2$, if the density is $\delta = 3\sqrt{5+t}$.
+
+\Solution
+
+We're already given what $\r(t)$ and the bounds of $t$ are from the problem.
+
+If $\r(t)=\lra{t,2t,\frac{2}{3}t^{3/2}}$, then
+\begin{align*}
+    \r'(t)&=\lra{1,2,t^{1/2}}\\
+    \norm{\r'(t)}&=\sqrt{(1)^2+(2)^2+\lrp{t^{1/2}}^2}=\sqrt{5+t}
+\end{align*}
+Let's evaluate the integral.
+\begin{align*}
+    M&=\int_C \delta(x,y,z)\,ds\\
+    &=\int_0^2 \lrp{3\sqrt{5+t}}\lrp{\sqrt{5+t}}\,dt\\
+    &=3\int_0^2 5+t\,dt\tag{we can move constants outside}\\
+    &=3\lrb{5t+\frac{1}{2}t^2}_0^2\\
+    &=3\lrp{5(2)+\frac{1}{2}(2)^2}\\
+    &=36
+\end{align*}
+For $M_{xy}$,
+\begin{align*}
+    M_{xy}&=\int_C z\delta(x,y,z)\,ds\\
+    &=\int_0^2 \lrp{\frac{2}{3}t^{3/2}}\lrp{3\sqrt{5+t}}\lrp{\sqrt{5+t}}\,dt\\
+    &=2\int_0^2 t^{3/2}(5+t)\,dt\tag{we can move constants outside}\\
+    &=2\int_0^2 5t^{3/2}+t^{5/2}\,dt\\
+    &=2\lrb{2t^{5/2}+\frac{2}{7}t^{7/2}}_0^2\\
+    &=2\lrp{2(2)^{5/2}+\frac{2}{7}(2)^{7/2}}\\
+    &=\frac{144}{7}\sqrt{2}\tag{use a calculator}
+\end{align*}
+For $M_{yz}$,
+\begin{align*}
+    M_{yz}&=\int_C x\delta(x,y,z)\,ds\\
+    &=\int_0^2 \lrp{t}\lrp{3\sqrt{5+t}}\lrp{\sqrt{5+t}}\,dt\\
+    &=3\int_0^2 t(5+t)\,dt\tag{we can move constants outside}\\
+    &=3\int_0^2 5t + t^2\,dt\\
+    &=3\lrb{\frac{5}{2}t^2+\frac{1}{3}t^3}_0^2\\
+    &=3\lrp{\frac{5}{2}(2)^2+\frac{1}{3}(2)^3}\\
+    &=38\tag{use a calculator}
+\end{align*}
+For $M_{xz}$,
+\begin{align*}
+     M_{xz}&=\int_C y\delta(x,y,z)\,ds\\
+    &=\int_0^2 \lrp{2t}\lrp{3\sqrt{5+t}}\lrp{\sqrt{5+t}}\,dt\\
+    &=(2)(3)\int_0^2 t(5+t)\,dt\tag{we can move constants outside}\\
+    &=6\int_0^2 5t+t^2\,dt\\
+     &=6\lrb{\frac{5}{2}t^2+\frac{1}{3}t^3}_0^2\\
+    &=6\lrp{\frac{5}{2}(2)^2+\frac{1}{3}(2)^3}\\
+    &=76\tag{use a calculator}
+\end{align*}
+Our final answer is
+\begin{subequations}
+    \begin{empheq}[box=\widefbox]{align}
+        \overline{x}&=\frac{M_{yz}}{M}=\frac{38}{36}=\frac{19}{18}\nonumber\\
+        \overline{y}&=\frac{M_{xz}}{M}=\frac{76}{36}=\frac{19}{9}\nonumber\\
+         \overline{z}&=\frac{M_{xy}}{M}=\frac{\frac{144}{7}\sqrt{2}}{36}=\frac{4}{7}\sqrt{2}\nonumber\\
+        \text{center of mass:}&
+        \lrp{\frac{19}{18},\frac{19}{9},\frac{4}{7}\sqrt{2}}\nonumber
+    \end{empheq}
+\end{subequations}
+\end{document}

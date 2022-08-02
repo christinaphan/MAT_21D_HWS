@@ -1,0 +1,420 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+% are all of these packages really necessary?
+% no.
+% i'm just too lazy to only grab the packages i want for a specific
+% document, so i just glob all of my most commonly used packages together
+% this is bad practice.
+\usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ, mdframed, soul, calc, enumitem, mdframed, xcolor, geometry, empheq, mathtools, tikz, pgfplots, caption, subcaption, hyperref}
+
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/,optimize command away=\includepdf]
+
+%tikzpicture
+\usepackage{tikz}
+\usepackage{scalerel}
+\usepackage{pict2e}
+\usepackage{tkz-euclide}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns,arrows.meta}
+\usetikzlibrary{shadows}
+\usetikzlibrary{external}
+
+%pgfplots
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{statistics}
+\usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{polar}
+
+\tikzset{external/export=true}
+\pgfplotsset{
+    standard/.style={
+    axis line style = thick,
+    trig format=rad,
+    enlargelimits,
+    axis x line=middle,
+    axis y line=middle,
+    enlarge x limits=0.15,
+    enlarge y limits=0.15,
+    every axis x label/.style={at={(current axis.right of origin)},anchor=north west},
+    every axis y label/.style={at={(current axis.above origin)},anchor=south east}
+    }
+}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Homework 9 Solutions},
+    pdfpagemode=UseOutlines,
+    bookmarksopen=true,
+    pdfauthor={Christina Phan}
+}
+\newcommand{\lrp}[1]{\left( #1 \right)}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\lra}[1]{\left\langle #1 \right\rangle}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
+\newcommand{\iintR}[0]{\iint\limits_{R}}
+\renewcommand{\u}[0]{\mathbf{u}}
+\renewcommand{\i}[0]{\mathbf{i}}
+\renewcommand{\j}[0]{\mathbf{j}}
+\renewcommand{\k}[0]{\mathbf{k}}
+\newcommand{\T}[0]{\mathbf{T}}
+\newcommand{\N}[0]{\mathbf{N}}
+\renewcommand{\r}[0]{\mathbf{r}}
+
+\geometry{letterpaper, portrait, margin=1in}
+\renewcommand{\footrulewidth}{0.8pt}
+\setlength\parindent{0pt}
+\pagestyle{fancy}
+\lhead{Christina Phan}
+\rhead{MAT 21D} 
+\chead{\textbf{Homework 9 Solutions}}
+
+\newcommand{\Solution}{\textit{Solution}}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\phantomsection
+\addcontentsline{toc}{section}{Problem 1 (Parts)}\textbf{Problem 1 (Parts)}
+
+Find the unit tangent vector $\T$, the unit normal vector $\N$, and curvature $\kappa$:
+
+\phantomsection
+\addcontentsline{toc}{subsection}{1(a)}\textbf{(a)} $\displaystyle \r(t)=\lra{t,\ln \cos t},-\frac{\pi}{2}<t<\frac{\pi}{2}$
+
+\Solution
+
+Recall the unit tangent vector $\T$, the unit normal vector $\N$, and curvature $\kappa$ are
+\begin{align*}
+    \T&=\frac{\r'(t)}{\lVert \r'(t)\rVert}\\
+    \N&=\frac{\T'(t)}{\lVert \T'(t)\rVert}\\
+    \kappa&=\frac{\lVert \T'(t)\rVert}{\lVert \r'(t)\rVert}
+\end{align*}
+Let's find our unit tangent vector $\T$, the unit normal vector $\N$, and curvature $\kappa$ for this problem.
+\begin{align*}
+    \r'(t)&=\lra{1,\frac{1}{\cos t}(-\sin t)}=\lra{1,-\tan t}\\
+    \lVert \r '(t)\rVert&=\sqrt{(1)^2+(-\tan t)^2}=\sqrt{1+\tan^2 t}=\sqrt{\sec ^2 t}=\sec t\\
+    \T &=\frac{1}{\sec t}\lra{1,-\tan t}=\lra{\cos t, -\sin t}\\
+    \T'(t)&=\lra{-\sin t, -\cos t}\\
+    \lVert \T'(t)\rVert&=\sqrt{(-\sin t)^2 (-\cos t)^2}=\sqrt{\sin ^2 t+\cos ^2 t}=1\\
+    \N &=\frac{1}{1}\lra{-\sin t, -\cos t}=\lra{-\sin t, -\cos t}\\
+    \kappa &= \frac{1}{\sec t}=\cos t
+\end{align*}
+Our final answer is
+\begin{subequations}
+    \begin{empheq}[box=\widefbox]{align}
+         \T&=\lra{\cos t, -\sin t}\nonumber\\
+         \N&=\lra{-\sin t, -\cos t}\nonumber\\
+         \kappa&=\cos t\nonumber
+    \end{empheq}
+\end{subequations}
+\newpage
+\phantomsection
+\addcontentsline{toc}{subsection}{1(b)}\textbf{(b)} $\displaystyle \r(t)=\lra{2t+3,5-t^2}$
+
+\Solution
+
+Recall the unit tangent vector $\T$, the unit normal vector $\N$, and curvature $\kappa$ are
+\begin{align*}
+    \T&=\frac{\r'(t)}{\lVert \r'(t)\rVert}\\
+    \N&=\frac{\T'(t)}{\lVert \T'(t)\rVert}\\
+    \kappa&=\frac{\lVert \T'(t)\rVert}{\lVert \r'(t)\rVert}
+\end{align*}
+Let's find our unit tangent vector $\T$, the unit normal vector $\N$, and curvature $\kappa$ for this problem.
+\begin{align*}
+    \r'(t)&=\lra{2,-2t}\\
+    \lVert \r '(t)\rVert&=\sqrt{(2)^2+(-2t)^2}=\sqrt{4+4t^2}=\sqrt{4(1+t^2)}=2\sqrt{1+t^2}\\
+    \T &=\frac{1}{2\sqrt{1+t^2}}\lra{2,-2t}=\lra{\frac{1}{\sqrt{1+t^2}},-\frac{t}{\sqrt{1+t^2}}}\\
+    \T'(t)&=\lra{-\frac{2t}{2(1+t^2)^{3/2}},\frac{-(1+t^2)^{1/2}+\frac{2t}{2(1+t^2)^{1/2}}t}{(1+t^2)}}\\
+    &=\lra{-\frac{t}{(1+t^2)^{3/2}},\frac{-(1+t^2)+t^2}{(1+t^2)^{3/2}}}\\
+    &=\lra{-\frac{t}{(1+t^2)^{3/2}},-\frac{1}{(1+t^2)^{3/2}}}\\
+    \lVert \T'(t)\rVert&=\sqrt{\lrp{-\frac{t}{(1+t^2)^{3/2}}}^2+\lrp{-\frac{1}{(1+t^2)^{3/2}}}^2}\\
+    &=\sqrt{\frac{t^2}{(1+t^2)^3}+\frac{1}{(1+t^2)^3}}\\
+    &=\sqrt{\frac{(t^2+1)}{(1+t^2)^3}}\\
+    &=\sqrt{\frac{1}{(1+t^2)^2}}\\
+    &=\frac{1}{1+t^2}\\
+    \N&=\frac{1}{\frac{1}{1+t^2}}\lra{-\frac{t}{(1+t^2)^{3/2}},-\frac{1}{(1+t^2)^{3/2}}}\\
+    &=(1+t^2)\lra{-\frac{t}{(1+t^2)^{3/2}},-\frac{1}{(1+t^2)^{3/2}}}\\
+    &=\lra{-\frac{t}{(1+t^2)^{1/2}},-\frac{1}{(1+t^2)^{1/2}}}\\
+    \kappa &= \frac{\frac{1}{1+t^2}}{2(1+t^2)^{1/2}}=\frac{1}{2(1+t^2)^{3/2}}
+\end{align*}
+Our final answer is
+\begin{subequations}
+    \begin{empheq}[box=\widefbox]{align}
+         \T&=\lra{\frac{1}{\sqrt{1+t^2}},-\frac{t}{\sqrt{1+t^2}}}\nonumber\\
+         \N&=\lra{-\frac{t}{(1+t^2)^{1/2}},-\frac{1}{(1+t^2)^{1/2}}}\nonumber\\
+         \kappa&=\frac{1}{2(1+t^2)^{3/2}}\nonumber
+    \end{empheq}
+\end{subequations}
+\phantomsection
+\addcontentsline{toc}{subsection}{1(c)}\textbf{(c)} $\displaystyle \r(t)=\lra{e^t\cos t, e^t\sin t,2}$
+
+\Solution
+
+Recall the unit tangent vector $\T$, the unit normal vector $\N$, and curvature $\kappa$ are
+\begin{align*}
+    \T&=\frac{\r'(t)}{\lVert \r'(t)\rVert}\\
+    \N&=\frac{\T'(t)}{\lVert \T'(t)\rVert}\\
+    \kappa&=\frac{\lVert \T'(t)\rVert}{\lVert \r'(t)\rVert}
+\end{align*}
+Let's find our unit tangent vector $\T$, the unit normal vector $\N$, and curvature $\kappa$ for this problem.
+\begin{align*}
+    \r'(t)&=\lra{e^t\cos t - e^t\sin t, e^t\sin t + e^t\cos t, 0}\\
+    \lVert \r '(t)\rVert&=\sqrt{(e^t\cos t - e^t\sin t)^2+(e^t\sin t + e^t\cos t)^2+(0)^2}=\sqrt{2e^{2t}\cos ^2 t + 2e^{2t}\sin^2 t}=\sqrt{2e^{2t}}=e^t\sqrt{2}\\
+    \T &=\frac{1}{e^t\sqrt{2}}\lra{e^t\cos t - e^t\sin t, e^t\sin t + e^t\cos t, 0}=\frac{1}{\sqrt{2}}\lra{\cos t - \sin t, \sin t + \cos t,0}\\
+    \T'(t)&=\frac{1}{\sqrt{2}}\lra{-\sin t -\cos t, \cos t - \sin t,0}\\
+    \lVert \T'(t)\rVert&=\frac{1}{\sqrt{2}}\sqrt{(-\sin t -\cos t)^2+(\cos t - \sin t)^2 + (0)^2}=\frac{1}{\sqrt{2}}\sqrt{2\sin ^2 t + 2\cos^2 t}=\frac{1}{\sqrt{2}}\sqrt{2}=1\\
+    \N&=\frac{1}{1}\lrp{\frac{1}{\sqrt{2}}\lra{-\sin t -\cos t, \cos t - \sin t,0}}=\frac{1}{\sqrt{2}}\lra{-\sin t -\cos t, \cos t - \sin t,0}\\
+    \kappa &= \frac{1}{e^t\sqrt{2}}
+\end{align*}
+Our final answer is
+\begin{subequations}
+    \begin{empheq}[box=\widefbox]{align}
+         \T&=\frac{1}{\sqrt{2}}\lra{\cos t - \sin t, \sin t + \cos t,0}\nonumber\\
+         \N&=\frac{1}{\sqrt{2}}\lra{-\sin t -\cos t, \cos t - \sin t,0}\nonumber\\
+         \kappa&= \frac{1}{e^t\sqrt{2}}\nonumber
+    \end{empheq}
+\end{subequations}
+\newpage
+\phantomsection
+\addcontentsline{toc}{subsection}{1(d)}\textbf{(d)} $\displaystyle \r(t)=\lra{6\sin 2t, 6\cos 2t, 5t}$
+
+\Solution
+
+Recall the unit tangent vector $\T$, the unit normal vector $\N$, and curvature $\kappa$ are
+\begin{align*}
+    \T&=\frac{\r'(t)}{\lVert \r'(t)\rVert}\\
+    \N&=\frac{\T'(t)}{\lVert \T'(t)\rVert}\\
+    \kappa&=\frac{\lVert \T'(t)\rVert}{\lVert \r'(t)\rVert}
+\end{align*}
+Let's find our unit tangent vector $\T$, the unit normal vector $\N$, and curvature $\kappa$ for this problem.
+\begin{align*}
+    \r'(t)&=\lra{12\cos 2t, -12\sin 2t, 5}\\
+    \lVert \r '(t)\rVert&=\sqrt{(12\cos 2t)^2 + (-12\sin 2t)^2 + (5)^2}=\sqrt{144\cos^2 2t + 144 \sin ^2 2t + 25}=\sqrt{144+25}=\sqrt{169}=13\\
+    \T &=\frac{1}{13}\lra{12\cos 2t, -12\sin 2t, 5}\\
+    \T'(t)&=\frac{1}{13}\lra{-24\sin 2t, -24\cos 2t, 0}\\
+    \lVert \T'(t)\rVert&=\frac{1}{13}\sqrt{(-24\sin 2t)^2 + (-24 \cos 2t)^2 +(0)^2}=\frac{1}{13}\sqrt{24^2\sin ^2 2t + 24^2\cos ^2 2t}=\frac{1}{13}\sqrt{24^2}=\frac{24}{13}\\
+    \N&=\frac{1}{\frac{24}{13}}\frac{1}{13}\lra{-24\sin 2t, -24\cos 2t, 0}=\frac{1}{24}\lra{-24\sin 2t, -24\cos 2t, 0}=\lra{-\sin 2t, -\cos 2t, 0}\\
+    \kappa &= \frac{\frac{24}{13}}{13}=\frac{24}{169}
+\end{align*}
+Our final answer is
+\begin{subequations}
+    \begin{empheq}[box=\widefbox]{align}
+         \T&=\frac{1}{13}\lra{12\cos 2t, -12\sin 2t, 5}\nonumber\\
+         \N&=\lra{-\sin 2t, -\cos 2t, 0}\nonumber\\
+         \kappa&= \frac{24}{169}\nonumber
+    \end{empheq}
+\end{subequations}
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Problem 2 (Parts)}\textbf{Problem 2 (Parts)} 
+
+Recall that we can parameterize any function $y=f(x)$ by $\mathbf{r}(t)=\lra{t,f(t)}$.
+
+\phantomsection
+\addcontentsline{toc}{subsection}{2(a)}\textbf{(a)} Show that the curvature at the point $x$ is given by $\kappa (x)=\dfrac{\left|f''(x)\right|}{(1+f'(x)^2)^{3/2}}$.
+
+\Solution
+
+Recall that $\kappa$ is
+\begin{align*}
+    \kappa&=\frac{\lVert \T'(t)\rVert}{\lVert \r'(t)\rVert}
+\end{align*}
+Let's find $\kappa$ in our problem.
+\begin{align*}
+    \r'(t)&=\lra{1,f'(t)}\\
+    \lVert \r'(t)\rVert&=\sqrt{(1)^2 + (f'(t))^2}=\sqrt{1+f'(t)^2}\\
+    \T &=\frac{1}{\sqrt{1+f'(t)^2}}\lra{1,f'(t)}=\lra{\frac{1}{\sqrt{1+f'(t)^2}},\frac{f'(t)}{\sqrt{1+f'(t)^2}}}\\
+    \T'(t)&=\lra{-\frac{2f'(t)f''(t)}{2(1+f'(t)^2)^{3/2}},\frac{f''(t)(1+f'(t)^2)^{1/2}-\frac{2f'(t)f''(t)}{2(1+f'(t)^2)^{1/2}}(f'(t))}{(1+f'(t)^2)}}\\
+    &=\lra{-\frac{f'(t)f''(t)}{(1+f'(t)^2)^{3/2}},\frac{f''(t)(1+f'(t)^2)-f'(t)^2f''(t)}{(1+f'(t)^2)^{3/2}}}\\
+    &=\lra{-\frac{f'(t)f''(t)}{(1+f'(t)^2)^{3/2}},\frac{f''(t)}{(1+f'(t)^2)^{3/2}}}\\
+    \lVert \T'(t)\rVert&=\sqrt{\lrp{-\frac{f'(t)f''(t)}{(1+f'(t)^2)^{3/2}}}^2+\lrp{\frac{f''(t)}{(1+f'(t)^2)^{3/2}}}^2}\\
+    &=\sqrt{\frac{f'(t)^2f''(t)^2}{(1+f'(t)^2)^3}+\frac{f''(t)^2}{(1+f'(t)^2)^3}}\\
+    &=\sqrt{\frac{f'(t)^2f''(t)^2+f''(t)^2}{(1+f'(t)^2)^3}}\\
+    &=\sqrt{\frac{f''(t)^2(f'(t)^2+1)}{(1+f'(t)^2)^3}}\\
+    &=\sqrt{\frac{f''(t)^2}{(1+f'(t)^2)^2}}\\
+    &=\frac{\left|f''(t)\right|}{\left|1+f'(t)^2\right|}\\
+    \kappa&=\frac{\frac{\left|f''(t)\right|}{\left|1+f'(t)^2\right|}}{(1+f'(t)^2)^{1/2}}\\
+    &=\frac{\left|f''(t)\right|}{(1+f'(t)^2)^{3/2}}
+\end{align*}
+\qed
+\newpage
+\phantomsection
+\addcontentsline{toc}{subsection}{2(b)}\textbf{(b)} Find the curvature of $f(x)=\ln \cos x,-\dfrac{\pi}{2}<x<\frac{\pi}{2}$
+
+\Solution
+
+For $f(x)=\ln \cos x$,
+\begin{align*}
+    f'(x)&=\frac{1}{\cos x}(-\sin x)=-\tan x\\
+    f''(x)&=-\sec^2 x\\
+    \kappa &=\frac{\left|-\sec^2 x\right|}{(1+(-\tan x)^2)^{3/2}}=\frac{\sec ^2}{(1+\tan^2 x)^{3/2}}=\frac{\sec ^2}{(\sec ^2 x)^{3/2}}=\frac{\sec ^2 x}{\left | \sec ^3 x\right |}=\frac{1}{\sec x}=\boxed{\cos x}
+\end{align*}
+We can drop the absolute value signs on the $\left | \sec^3 x\right |$ since $\displaystyle-\frac{\pi}{2}<x<\frac{\pi}{2}$ and $\sec x$ is always positive in that range.
+
+\phantomsection
+\addcontentsline{toc}{subsection}{2(c)}\textbf{(c)} What is the curvature of a function at a point of inflection?
+
+\Solution
+
+At a point of inflection, $f''(x)=0$. 
+
+Also, $f'(x)^2$ ensures that $1+f'(x)^2\neq 0$ since $f'(x)^2$ can never result in a negative value. 
+
+Therefore, at an inflection point, $\kappa = \dfrac{0}{(1 + f'(x)^2)^{3/2}}=0$ since $0$ divided by any non-zero value is $0$.
+
+\qed
+\newpage
+\phantomsection
+\addcontentsline{toc}{subsection}{2(d)}\textbf{(d)} Show that we can generalize this formula to a curve $\r(t)=\lra{x(t),y(t)}$:
+\begin{align*}
+    \kappa=\frac{\left|x'y''-y'x''\right|}{((x')^2+(y')^2)^{3/2}}
+\end{align*}
+\Solution
+
+We follow a similar method in \textbf{(a)}.
+
+Recall that $\kappa$ is
+\begin{align*}
+    \kappa&=\frac{\lVert \T'(t)\rVert}{\lVert \r'(t)\rVert}
+\end{align*}
+
+Let's find $\kappa$ in our problem.
+\begin{align*}
+    \r'(t)&=\lra{x',y'}\\
+    \lVert \r'(t)\rVert&=\sqrt{(x')^2 + (y')^2}\\
+    \T&=\frac{1}{\sqrt{(x')^2 + (y')^2}}\lra{x',y'}=\lra{\frac{x'}{((x')^2 + (y')^2)^{1/2}},\frac{y'}{((x')^2 + (y')^2)^{1/2}}}\\
+    \T'(t) &=\lra{\frac{x''((x')^2 + (y')^2)^{1/2}-\frac{(2x'x''+2y'y'')}{2((x')^2+(y')^2)^{1/2}}x'}{((x')^2 + (y')^2)},\frac{y''((x')^2 + (y')^2)^{1/2}-\frac{(2x'x''+2y'y'')}{2((x')^2+(y')^2)^{1/2}}y'}{((x')^2 + (y')^2)}}\\
+    &=\lra{\frac{x''((x')^2+(y')^2)-(x'x''+y'y'')x'}{((x')^2+(y')^2)^{3/2}},\frac{y''((x')^2+(y')^2)-(x'x''+y'y'')y'}{((x')^2+(y')^2)^{3/2}}}\\
+    &=\lra{\frac{x''(y')^2 + x'y'y''}{((x')^2+(y')^2)^{3/2}},\frac{y''(x')^2-y'x'x''}{((x')^2+(y')^2)^{3/2}}}\\
+    &=\lra{\frac{y'(x''y'-x'y'')}{((x')^2+(y')^2)^{3/2}},\frac{x'(x'y''-x''y')}{((x')^2+(y')^2)^{3/2}}}\\
+    \lVert\T'(t)\rVert&=\sqrt{\lrp{\frac{y'(x''y'-x'y'')}{((x')^2+(y')^2)^{3/2}}}^2+\lrp{\frac{x'(x'y''-x''y')}{((x')^2+(y')^2)^{3/2}}}^2}\\
+    &=\sqrt{\frac{(y')^2(x''y'-x'y'')^2}{((x')^2+(y')^2)^3}+\frac{(x')^2(x'y''-x''y')^2}{((x')^2+(y')^2)^3}}\\
+    &=\sqrt{\frac{((y')^2 + (x')^2)(x'y''-y'x'')^2}{((x')^2+(y')^2)^3}}\tag{$(x''y'-x'y'')^2=(x'y''-x''y')^2$}\\
+    &=\frac{\left|x'y''-y'x''\right|\sqrt{x^2+y^2}}{(x^2+y^2)^{3/2}}\\
+    \kappa&=\frac{\left|x'y''-y'x''\right|\sqrt{x^2+y^2}}{((x')^2+(y')^2)^{3/2}}\times\frac{1}{\sqrt{(x')^2+(y')^2}}\\
+    &=\boxed{\frac{\left|x'y''-y'x''\right|}{((x')^2+(y')^2)^{3/2}}}
+\end{align*}
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Problem 3}\textbf{Problem 3} 
+
+Show that $y=ax^2$ has its largest curvature at the vertex and no minimum curvature.
+
+\Solution
+
+From \textbf{2(a)}, we know that $\displaystyle\kappa (x)=\dfrac{\left|f''(x)\right|}{(1+f'(x)^2)^{3/2}}$.
+
+Let $f(x)=y$, then
+\begin{align*}
+    y&=ax^2\\
+    y'&=2ax\\
+    y''&=2a\\
+    \kappa(x) &=\frac{\left|2a\right|}{(1+(2ax)^2)^{3/2}}=\frac{\left|2a\right|}{(1+4a^2x^2)^{3/2}}\\
+    \kappa '(x)&=-\frac{3}{2}\left|2a\right|\frac{1}{(1+4a^2x^2)^{5/2}}(8a^2x)
+\end{align*}
+We know $\kappa'(x)=0$ only when $x=0$ (only critical point is $x=0$). When $x<0$, $\kappa'(x)>0$ since a negative $\lrp{-\frac{3}{2}}$ times a negative $x$ is a positive. When $x>0$, $\kappa'(x)<0$ since a negative $\lrp{-\frac{3}{2}}$ times a positive $x$ is a negative.
+
+By definition of absolute maximum, the absolute maximum of $\kappa$ occurs at $x=0$, the vertex of $y=ax^2$. There is no minimum curvature since $\kappa'(x)<0$ for all $x<0$ (the more negative $x$ gets, the smaller $\kappa$ gets).\qed
+
+\phantomsection
+\addcontentsline{toc}{section}{Problem 4}\textbf{Problem 4}
+
+In today's lecture, we showed that the curvature of the helix $\r(t)=\lra{a\cos t,a\sin t, bt}$ was $\kappa=\dfrac{a}{a^2+b^2}$. For a fixed value of $b$, what is the largest value $\kappa$ can have?
+
+\Solution
+
+If $\kappa=\dfrac{a}{a^2+b^2}$, then for a fixed value of $b$,
+\begin{align*}
+    \frac{d\kappa}{da}&=\frac{(a^2+b^2)-2a^2}{(a^2+b^2)^2}=\frac{-a^2+b^2}{(a^2+b^2)^2}
+\end{align*}
+The critical points of $\kappa$ occur when $\displaystyle  \frac{d\kappa}{da}=0$.
+\begin{align*}
+    0&=\frac{-a^2+b^2}{(a^2+b^2)^2}\\
+    0&=-a^2+b^2\\
+    a^2&=b^2\\
+    a&=b\tag{$a,b\geq0$ since they're both radii}
+\end{align*}
+A critical point of $\kappa$ occurs at $a=b$ since $\displaystyle  \frac{d\kappa}{da}=0$ at $a=b$.
+
+Since $\dfrac{d\kappa}{da}>0$ when $a<b$ and $\dfrac{d\kappa}{da}<0$ when $a>b$, an absolute maximum of $\kappa$ occurs at $a=b$.
+
+At $a=b$,
+\begin{align*}
+    \kappa&=\frac{b}{b^2+b^2}=\frac{b}{2b^2}={\frac{1}{2b}}
+\end{align*}
+The largest value $\kappa$ can have is $\displaystyle\frac{1}{2b}$.
+\qed
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Problem 5 (Parts)}\textbf{Problem 5 (Parts)}
+
+The \textit{total curvature} of a curve is determined by integrating curvature with respect to the arc length parameter $s$: $\displaystyle K=\int_{s_0}^{s_1} \kappa\,ds$
+
+\phantomsection
+\addcontentsline{toc}{subsection}{5(a)} \textbf{(a)} Use a substitution to show that total curvature is $\displaystyle K=\int_{t_0}^{t_1} \kappa \lVert \r'(t)\rVert\,dt$
+
+\Solution
+
+Let $\displaystyle s(t)=\int_{t_0}^t \lVert \r'(\tau)\rVert\,d\tau$, $s(t_0)=s_0$, and $s(t_1)=s_1$. Then, $\displaystyle \frac{ds}{dt}=\lVert \r'(t)\rVert\implies ds=\lVert \r'(t)\rVert\,dt$ by FTC 1. 
+
+By substitution,
+\begin{align*}
+   K=\int_{s_0}^{s_1} \kappa\,ds=\int_{t_0}^{t_1}\kappa\lVert \r'(t)\rVert\,dt
+\end{align*}
+\qed
+
+\phantomsection
+\addcontentsline{toc}{subsection}{5(b)} \textbf{(b)} Use this to find the total curvature of the parabola $y=x^2$, $-\infty < x<\infty$.
+
+\Solution
+
+From \textbf{(a)}, we know $\displaystyle K=\int_{t_0}^{t_1} \kappa \lVert \r'(t)\rVert\,dt$.
+
+Let $t_0=-\infty$, $t_1=\infty$, and $\mathbf{r}(t)=\lra{t,t^2}$. Then,
+\begin{align*}
+    \r'(t)&=\lra{1,2t}\\
+    \lVert \r'(t)\rVert &=\sqrt{(1)^2+(2t)^2}=\sqrt{1+4t^2}\\
+    \T &=\frac{1}{\sqrt{1+4t^2}}\lra{1,2t}=\lra{\frac{1}{\sqrt{1+4t^2}},\frac{2t}{\sqrt{1+4t^2}}}\\
+    \T'(t)&=\lra{-\frac{4t}{(1+4t^2)^{3/2}},\frac{2\sqrt{1+4t^2}-\frac{4t}{(1+4t^2)^{1/2}}(2t)}{(1+4t^2)}}\\
+    &=\lra{-\frac{4t}{(1+4t^2)^{3/2}},\frac{2(1+4t^2)-8t^2}{(1+4t^2)^{3/2}}}\\
+    &=\lra{-\frac{4t}{(1+4t^2)^{3/2}},\frac{2}{(1+4t^2)^{3/2}}}\\
+    \lVert \T'(t)\rVert &=\sqrt{\lrp{-\frac{4t}{(1+4t^2)^{3/2}}}^2+\lrp{\frac{2}{(1+4t^2)^{3/2}}}^2}\\
+    &=\sqrt{\frac{16t^2+4}{(1+4t^2)^3}}\\
+    &=\sqrt{\frac{4(4t^2+1)}{(1+4t^2)^3}}\\
+    &=\sqrt{\frac{4}{(1+4t^2)^2}}\\
+    &=\frac{2}{1+4t^2}\\
+    \kappa&=\frac{2}{1+4t^2}\times \frac{1}{\sqrt{1+4t^2}}=\frac{2}{(1+4t^2)^{3/2}}
+\end{align*}
+Our total curvature is
+\begin{align*}
+    K&=\int_{-\infty}^{\infty}\frac{2}{(1+4t^2)^{3/2}}\lrp{\sqrt{1+4t^2}}\,dt\\
+    &=\int_{-\infty}^{\infty}\frac{2}{1+4t^2}\,dt\\
+    &=\lim_{u\to-\infty}\int_u^0\frac{2}{1+4t^2}\,dt+\lim_{v\to\infty}\int_0^v\frac{2}{1+4t^2}\,dt\\
+    &=\lim_{u\to-\infty}\lrb{\tan^{-1} 2t}_u^0+\lim_{v\to\infty}\lrb{\tan^{-1}2t}_0^v\\
+    &=\lim_{u\to-\infty} -\tan^{-1}2u + \lim_{v\to-\infty} \tan^{-1}2v\\
+    &=-(-\frac{\pi}{2})+\frac{\pi}{2}\\
+    &=\boxed{\pi}
+\end{align*}
+\end{document}
